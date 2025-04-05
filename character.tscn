@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cm83umkit7w37"]
+
+[ext_resource type="Script" uid="uid://c58h6bbmor4wb" path="res://character.gd" id="1_glpr6"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7dm0k"]
+height = 1.8
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7dm0k"]
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7dm0k"]
+albedo_color = Color(0.965044, 0.57936, 0.455969, 1)
+
+[node name="Character" type="CharacterBody3D"]
+collision_layer = 2
+axis_lock_linear_z = true
+script = ExtResource("1_glpr6")
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
+shape = SubResource("CylinderShape3D_7dm0k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Shape"]
+mesh = SubResource("CylinderMesh_7dm0k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7dm0k")
