@@ -39,11 +39,11 @@ class_name Player
 @export_node_path("MeshInstance3D") var debug_mesh_path: NodePath = NodePath("DebugMesh")
 
 signal state_changed(prev: State, cur: State)
-@onready var current_state: Constants.PlayerState = Constants.PlayerStateStringLookup[$State.initial_state.name]
+@onready var current_state: Constants.PlayerState = Constants.StringToPlayerStateLookup[$State.initial_state.name]
 
 @onready var debug_mesh: MeshInstance3D = get_node(debug_mesh_path)
 var move_velocity := Vector3.ZERO
-var gravity_velocity := Vector3.ZERO
+var vertical_velocity := Vector3.ZERO
 var jump_velocity := 0.0
 var is_running := false
 @onready var speed := walk_speed
@@ -94,14 +94,14 @@ func _physics_process(delta: float):
 		return
 	
 	# Add velocity from gravity and movement input together
-	velocity = move_velocity + gravity_velocity
+	velocity = move_velocity + vertical_velocity
 	
 	# Move and slide the player character
 	move_and_slide()
 
 
 func jump():
-	gravity_velocity += Vector3.UP * jump_velocity
+	vertical_velocity += Vector3.UP * jump_velocity
 	#move_velocity += Vector3.RIGHT * move_input * jump_velocity * 0.05
 
 
@@ -112,7 +112,7 @@ func set_debug_color(color: Color):
 
 
 func _on_state_transition(from_state: State, to_state_name: String):
-	current_state = Constants.PlayerStateStringLookup[to_state_name]
+	current_state = Constants.StringToPlayerStateLookup[to_state_name]
 	set_debug_color(Constants.PlayerStateToColorLookup[current_state])
 
 

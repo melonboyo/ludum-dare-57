@@ -20,7 +20,7 @@ func update(delta):
 		#transition.emit(self, "Sliding")
 		#return
 	
-	if absf(player.move_input) < 0.05 and player.move_velocity.length() < 0.2*player.speed:
+	if absf(player.move_input) < 0.05 and player.move_velocity.length() < 0.2 * player.speed:
 		transition.emit(self, "Idle")
 		return
 

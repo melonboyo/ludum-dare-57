@@ -16,5 +16,5 @@ func physics_update(delta):
 	
 	var desired_velocity = player.input_direction3 * player.run_speed * 0.1
 	player.move_velocity = player.move_velocity.move_toward(desired_velocity, delta * player.ground_acceleration)
-	player.gravity_velocity = Vector3.DOWN * 0.5
+	player.vertical_velocity = Vector3.DOWN * 0.5
 	rotate_to_direction(player.last_strong_direction, delta)

@@ -26,7 +26,7 @@ const PlayerStates = {
 	PlayerState.FROZEN : "Frozen",
 }
 
-const PlayerStateStringLookup = {
+const StringToPlayerStateLookup = {
 	 "Idle" : PlayerState.IDLE,
 	 "Running" : PlayerState.RUNNING,
 	 "ReadyJump" : PlayerState.READYJUMP,
@@ -42,10 +42,10 @@ const PlayerStateToColorLookup := {
 	PlayerState.IDLE : Color.WHITE,
 	PlayerState.RUNNING : Color.DARK_ORANGE,
 	PlayerState.READYJUMP : Color.LIGHT_SALMON,
-	PlayerState.SLIDING : Color.CRIMSON,
+	PlayerState.SLIDING : Color.LIGHT_YELLOW,
 	PlayerState.TALKING : Color.HOT_PINK,
 	PlayerState.INAIR : Color.CADET_BLUE,
-	PlayerState.ONLEDGE : Color.GREEN_YELLOW,
+	PlayerState.ONLEDGE : Color.CRIMSON,
 	PlayerState.CLIMBING : Color.SPRING_GREEN,
 	PlayerState.FROZEN : Color.CYAN,
 }

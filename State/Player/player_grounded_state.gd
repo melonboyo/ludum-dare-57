@@ -12,7 +12,7 @@ func update(_delta):
 
 
 func physics_update(delta):
-	player.gravity_velocity = Vector3.DOWN * 0.5
+	player.vertical_velocity = Vector3.DOWN * 2.5
 	
 	if (Input.is_action_just_pressed("jump") or not early_jump_buffer.is_stopped()) and not player.hold_to_jump:
 		early_jump_buffer.stop()

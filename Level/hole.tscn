@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=3 uid="uid://cyhus5kujnsmk"]
+
+[ext_resource type="PackedScene" uid="uid://m2tdw6shs5u0" path="res://Assets/hole.glb" id="1_h8jsx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h8jsx"]
+size = Vector3(25.6063, 1, 3.30103)
+
+[sub_resource type="Gradient" id="Gradient_h8jsx"]
+colors = PackedColorArray(0, 0, 0, 1, 0.203922, 0.12549, 0.0431373, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_as8cg"]
+gradient = SubResource("Gradient_h8jsx")
+width = 8
+height = 512
+fill_from = Vector2(0, 0.14)
+fill_to = Vector2(0, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 100
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xifpk"]
+transparency = 1
+albedo_texture = SubResource("GradientTexture2D_as8cg")
+
+[node name="Hole" instance=ExtResource("1_h8jsx")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.1574, -0.612043, 0)
+shape = SubResource("BoxShape3D_h8jsx")
+debug_color = Color(0, 0.490196, 0.701961, 0.894118)
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Ground/StaticBody3D" index="1"]
+transform = Transform3D(0.538256, -0.842781, 0, 0.842781, 0.538256, 0, 0, 0, 1, 36.135, 9.79494, 0)
+shape = SubResource("BoxShape3D_h8jsx")
+debug_color = Color(0, 0.490196, 0.701961, 0.894118)
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Ground/StaticBody3D" index="2"]
+transform = Transform3D(0.154314, -0.988022, 0, 0.988022, 0.154314, 0, 0, 0, 1, 34.3486, 16.2597, 0)
+shape = SubResource("BoxShape3D_h8jsx")
+debug_color = Color(0, 0.490196, 0.701961, 0.894118)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Ground/StaticBody3D" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5849, -0.661067, 0)
+shape = SubResource("BoxShape3D_h8jsx")
+debug_color = Color(0, 0.490196, 0.701961, 0.894118)
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Ground/StaticBody3D" index="4"]
+transform = Transform3D(0.52654, 0.85015, 0, -0.85015, 0.52654, 0, 0, 0, 1, -36.0436, 10.0511, 0)
+shape = SubResource("BoxShape3D_h8jsx")
+debug_color = Color(0, 0.490196, 0.701961, 0.894118)
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="Ground/StaticBody3D" index="5"]
+transform = Transform3D(0.0364344, 0.999336, 0, -0.999336, 0.0364344, 0, 0, 0, 1, -34.1128, 18.6201, 0)
+shape = SubResource("BoxShape3D_h8jsx")
+debug_color = Color(0, 0.490196, 0.701961, 0.894118)
+
+[node name="Back" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.117033, 47.3216, 0.234066)
+surface_material_override/0 = SubResource("StandardMaterial3D_xifpk")
+metadata/_edit_lock_ = true

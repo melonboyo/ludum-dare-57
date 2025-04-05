@@ -1,6 +1,5 @@
-[gd_scene load_steps=11 format=3 uid="uid://0446addxasvd"]
+[gd_scene load_steps=10 format=3 uid="uid://0446addxasvd"]
 
-[ext_resource type="Script" uid="uid://domomqra22ul5" path="res://focus.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://bypjr8y06p4s8" path="res://player.tscn" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://bvsogxgcesb8d" path="res://camera.gd" id="3_h2yge"]
 
@@ -10,12 +9,12 @@ sky_horizon_color = Color(0.591508, 0.483881, 0.427007, 1)
 ground_bottom_color = Color(0.107466, 0.0694454, 0.0726862, 1)
 ground_horizon_color = Color(0.599415, 0.499498, 0.475582, 1)
 
-[sub_resource type="Sky" id="Sky_h2yge"]
+[sub_resource type="Sky" id="Sky_1bvp3"]
 sky_material = SubResource("ProceduralSkyMaterial_h2yge")
 
 [sub_resource type="Environment" id="Environment_lquwl"]
 background_mode = 2
-sky = SubResource("Sky_h2yge")
+sky = SubResource("Sky_1bvp3")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0xm2m"]
 
@@ -34,10 +33,9 @@ size = Vector3(5, 10, 8)
 environment = SubResource("Environment_lquwl")
 
 [node name="Geometry" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.28321)
 
 [node name="Back" type="MeshInstance3D" parent="Geometry"]
-transform = Transform3D(44.2129, 0, 0, 0, -4.37114e-08, -32.1059, 0, 1, -1.40339e-06, -4, -22.7335, -3.81776)
+transform = Transform3D(44.2129, 0, 0, 0, -4.37114e-08, -32.1059, 0, 1, -1.40339e-06, -4, -22.7335, -9.42081)
 mesh = SubResource("PlaneMesh_0xm2m")
 
 [node name="Back2" type="MeshInstance3D" parent="Geometry"]
@@ -166,48 +164,34 @@ collision_mask = 3
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Cube5/StaticBody3D"]
 shape = SubResource("BoxShape3D_7dm0k")
 
-[node name="Focus" type="Node3D" parent="." node_paths=PackedStringArray("player", "lookdown_timer")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.8, 0)
-script = ExtResource("1_h2yge")
-player = NodePath("../Player")
-lookdown_timer = NodePath("LookdownHoldTimer")
-
-[node name="LookdownHoldTimer" type="Timer" parent="Focus"]
-wait_time = 0.7
-one_shot = true
-ignore_time_scale = true
-
-[node name="FloorRayCast" type="RayCast3D" parent="Focus"]
-
 [node name="Player" parent="." instance=ExtResource("2_0xm2m")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6, 0.8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.8, 0)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Player"]
+light_energy = 1.65
 omni_range = 6.65
 omni_attenuation = 0.798
 
 [node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.988801, 0.149242, 0, -0.149242, 0.988801, 6, 0.8, 0)
 script = ExtResource("3_h2yge")
-focus_path = NodePath("../Focus")
-y_offset = -3.45
-max_angle = 19.035
-min_angle = -5.03
+focus_path = NodePath("../Player")
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13.9773)
 size = 20.0
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.44112, 2.06858, -1.22894)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.44112, 2.06858, -3.14377)
 light_color = Color(0.871277, 0.781603, 0.721836, 1)
 light_energy = 1.43
 omni_range = 6.48438
 
-[node name="OmniLight3D3" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.6417, -20.7213, -1.29492)
+[node name="OmniLight3D" type="OmniLight3D" parent="OmniLight3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.0828, -22.7899, -2.25434)
 light_color = Color(0.871277, 0.781603, 0.721836, 1)
 light_energy = 1.48
-omni_range = 18.6287
+omni_range = 17.2949
 omni_attenuation = 0.682
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="."]
@@ -221,5 +205,3 @@ transform = Transform3D(0.695975, -0.527912, 0.486751, 0, 0.677865, 0.735187, -0
 light_color = Color(0.224532, 0.209985, 0.19313, 1)
 light_energy = 1.715
 light_indirect_energy = 0.91
-
-[connection signal="timeout" from="Focus/LookdownHoldTimer" to="Focus" method="_on_lookdown_hold_timer_timeout"]

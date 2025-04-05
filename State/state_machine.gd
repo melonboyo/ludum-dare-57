@@ -23,6 +23,7 @@ func _process(delta):
 	if not current_state:
 		return
 	current_state.update(delta)
+	print(current_state.name)
 
 
 func _physics_process(delta):
@@ -31,9 +32,12 @@ func _physics_process(delta):
 	current_state.physics_update(delta)
 
 
-func _on_state_transition(from_state: State, to_state_name: String):
+func _on_state_transition(from_state: State, to_state_name: String, args=null):
 	if from_state != current_state:
 		return
+	
+	#if args != null:
+		#print("args: ", args)
 	
 	var to_state = states.get(to_state_name)
 	if !to_state:

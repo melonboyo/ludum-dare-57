@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://cswqig5dlfnvd"]
+
+[ext_resource type="PackedScene" uid="uid://crrj18un2g6i6" path="res://Assets/branch.glb" id="1_uur0d"]
+[ext_resource type="Texture2D" uid="uid://ddvotavoskh4" path="res://Assets/hole_wood1.jpg" id="2_nitbp"]
+[ext_resource type="Texture2D" uid="uid://c3o22mpiwueed" path="res://Assets/hole_wood1_normal.jpg" id="3_7i0pq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vcasr"]
+resource_name = "tree"
+cull_mode = 2
+albedo_texture = ExtResource("2_nitbp")
+roughness = 0.909449
+normal_enabled = true
+normal_scale = 0.2
+normal_texture = ExtResource("3_7i0pq")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uur0d"]
+size = Vector3(5.3175, 0.820313, 5.52441)
+
+[node name="Branch" instance=ExtResource("1_uur0d")]
+
+[node name="Branch" parent="." index="0"]
+transform = Transform3D(0, 0.795519, 0, -0.795519, 0, 0, 0, 0, 0.795519, 0, 0, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_vcasr")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6288, -0.118496, 0)
+shape = SubResource("BoxShape3D_uur0d")

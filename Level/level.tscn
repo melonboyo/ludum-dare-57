@@ -1,0 +1,95 @@
+[gd_scene load_steps=12 format=3 uid="uid://ck5nwrpgjddet"]
+
+[ext_resource type="PackedScene" uid="uid://cyhus5kujnsmk" path="res://Level/hole.tscn" id="1_o6mkr"]
+[ext_resource type="Script" uid="uid://domomqra22ul5" path="res://focus.gd" id="2_52x1o"]
+[ext_resource type="PackedScene" uid="uid://dxnl18c4ix1ou" path="res://Level/rock_big.tscn" id="2_d6qko"]
+[ext_resource type="Texture2D" uid="uid://cerjsxy3rnxrr" path="res://Assets/skybox.jpg" id="2_iincs"]
+[ext_resource type="PackedScene" uid="uid://cswqig5dlfnvd" path="res://Level/branch.tscn" id="3_22cqp"]
+[ext_resource type="PackedScene" uid="uid://bypjr8y06p4s8" path="res://player.tscn" id="3_iincs"]
+[ext_resource type="Script" uid="uid://bvsogxgcesb8d" path="res://camera.gd" id="4_nk1il"]
+[ext_resource type="Script" uid="uid://bqsi4d5mikjx" path="res://Level/player_light.gd" id="6_nk1il"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_nk1il"]
+panorama = ExtResource("2_iincs")
+
+[sub_resource type="Sky" id="Sky_1bvp3"]
+sky_material = SubResource("PanoramaSkyMaterial_nk1il")
+radiance_size = 4
+
+[sub_resource type="Environment" id="Environment_22cqp"]
+background_mode = 2
+sky = SubResource("Sky_1bvp3")
+ambient_light_source = 3
+ambient_light_energy = 2.2
+fog_light_color = Color(0.062116, 0.0624849, 0.141139, 1)
+fog_light_energy = 0.95
+fog_sky_affect = 0.305
+adjustment_enabled = true
+adjustment_brightness = 0.95
+adjustment_contrast = 1.05
+adjustment_saturation = 1.2
+
+[node name="Level" type="Node3D"]
+
+[node name="Geometry" type="Node3D" parent="."]
+
+[node name="Hole" parent="Geometry" instance=ExtResource("1_o6mkr")]
+
+[node name="RockBig" parent="Geometry" instance=ExtResource("2_d6qko")]
+transform = Transform3D(0.987933, 0.119459, -0.0985786, -0.119897, 0.992785, 0.00149184, 0.0980456, 0.0103454, 0.995128, -14.413, 0.523702, 0)
+
+[node name="Branch" parent="Geometry" instance=ExtResource("3_22cqp")]
+transform = Transform3D(0.92292, -0.0438305, 0.38249, 0.0474377, 0.998874, 0, -0.382059, 0.0181444, 0.92396, -9.00925, 2.83368, -1.43301)
+
+[node name="Branch2" parent="Geometry" instance=ExtResource("3_22cqp")]
+transform = Transform3D(0.983972, 0, -0.178321, 0, 1, 0, 0.178321, 0, 0.983972, -6.27383, 4.43805, 1.13727)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_22cqp")
+
+[node name="RealDirectionalLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.695975, -0.527912, 0.486752, 0, 0.677865, 0.735187, -0.718066, -0.511671, 0.471777, 0, 27.4262, 0)
+light_color = Color(0.384603, 0.669058, 0.936206, 1)
+light_energy = 0.02
+
+[node name="EditorLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.505672, -0.840867, 0.19297, 0, 0.223675, 0.974664, -0.862726, -0.492861, 0.113106, 0, 30.1802, 0)
+editor_only = true
+
+[node name="CameraPivot" type="Node3D" parent="."]
+script = ExtResource("4_nk1il")
+focus_path = NodePath("../Focus")
+max_angle = 19.035
+min_angle = -5.03
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13.9773)
+size = 20.0
+
+[node name="Focus" type="Node3D" parent="." node_paths=PackedStringArray("player", "lookdown_timer")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.5124, 0.8, 0)
+script = ExtResource("2_52x1o")
+player = NodePath("../Player")
+lookdown_timer = NodePath("LookdownHoldTimer")
+
+[node name="LookdownHoldTimer" type="Timer" parent="Focus"]
+wait_time = 0.7
+one_shot = true
+ignore_time_scale = true
+
+[node name="FloorRayCast" type="RayCast3D" parent="Focus"]
+
+[node name="Player" parent="." instance=ExtResource("3_iincs")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -21.5124, 0.8, 0)
+
+[node name="PlayerLight" type="OmniLight3D" parent="." node_paths=PackedStringArray("player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.095, 4.495)
+light_color = Color(0.821647, 0.75231, 0.705559, 1)
+omni_range = 10.2634
+omni_attenuation = 0.798
+script = ExtResource("6_nk1il")
+player = NodePath("../Player")
+y_offset = 2.095
+z_offset = 4.495
+
+[connection signal="timeout" from="Focus/LookdownHoldTimer" to="Focus" method="_on_lookdown_hold_timer_timeout"]
