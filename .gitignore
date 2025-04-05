@@ -1,3 +1,8 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+Exports/*
+!Exports/*.ps1
+
+# VS Code specific ignores
+.vscode/settings.json
