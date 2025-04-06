@@ -1,10 +1,16 @@
 @tool
 extends Node3D
-
+class_name Camera
 
 @export_node_path("Node3D") var focus_path: NodePath
 @onready var focus: Node3D = get_node(focus_path)
 
+@export var distance := 12.0:
+	set(value):
+		distance = value
+		if not Engine.is_editor_hint():
+			return
+		$Camera3D.position.z = value
 @export var y_offset := 0.0:
 	set(value):
 		y_offset = value
@@ -15,6 +21,8 @@ var changing_angle := false
 @export_range(-60, 60) var default_angle := 0.0:
 	set(value):
 		default_angle = value
+		if not Engine.is_editor_hint():
+			return
 		global_rotation_degrees.x = -default_angle
 		if changing_angle:
 			return
@@ -25,6 +33,8 @@ var changing_angle := false
 @export_range(-60, 60) var max_angle := 0.0:
 	set(value):
 		max_angle = value
+		if not Engine.is_editor_hint():
+			return
 		if changing_angle:
 			return
 		changing_angle = true
@@ -34,6 +44,8 @@ var changing_angle := false
 @export_range(-60, 60) var min_angle := 0.0:
 	set(value):
 		min_angle = value
+		if not Engine.is_editor_hint():
+			return
 		if changing_angle:
 			return
 		changing_angle = true

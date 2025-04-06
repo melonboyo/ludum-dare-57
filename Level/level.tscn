@@ -1,12 +1,12 @@
 [gd_scene load_steps=12 format=3 uid="uid://ck5nwrpgjddet"]
 
 [ext_resource type="PackedScene" uid="uid://cyhus5kujnsmk" path="res://Level/hole.tscn" id="1_o6mkr"]
-[ext_resource type="Script" uid="uid://domomqra22ul5" path="res://focus.gd" id="2_52x1o"]
+[ext_resource type="Script" uid="uid://domomqra22ul5" path="res://Player/focus.gd" id="2_52x1o"]
 [ext_resource type="PackedScene" uid="uid://dxnl18c4ix1ou" path="res://Level/rock_big.tscn" id="2_d6qko"]
 [ext_resource type="Texture2D" uid="uid://cerjsxy3rnxrr" path="res://Assets/skybox.jpg" id="2_iincs"]
 [ext_resource type="PackedScene" uid="uid://cswqig5dlfnvd" path="res://Level/branch.tscn" id="3_22cqp"]
-[ext_resource type="PackedScene" uid="uid://bypjr8y06p4s8" path="res://player.tscn" id="3_iincs"]
-[ext_resource type="Script" uid="uid://bvsogxgcesb8d" path="res://camera.gd" id="4_nk1il"]
+[ext_resource type="PackedScene" uid="uid://bypjr8y06p4s8" path="res://Player/player.tscn" id="3_iincs"]
+[ext_resource type="Script" uid="uid://bvsogxgcesb8d" path="res://Player/camera.gd" id="4_nk1il"]
 [ext_resource type="Script" uid="uid://bqsi4d5mikjx" path="res://Level/player_light.gd" id="6_nk1il"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_nk1il"]
@@ -39,10 +39,13 @@ adjustment_saturation = 1.2
 transform = Transform3D(0.987933, 0.119459, -0.0985786, -0.119897, 0.992785, 0.00149184, 0.0980456, 0.0103454, 0.995128, -14.413, 0.523702, 0)
 
 [node name="Branch" parent="Geometry" instance=ExtResource("3_22cqp")]
-transform = Transform3D(0.92292, -0.0438305, 0.38249, 0.0474377, 0.998874, 0, -0.382059, 0.0181444, 0.92396, -9.00925, 2.83368, -1.43301)
+transform = Transform3D(0.986642, -0.0438305, 0.156901, 0.0461318, 0.998874, -0.011054, -0.156239, 0.0181444, 0.987553, -8.87273, 2.82406, -0.573723)
 
 [node name="Branch2" parent="Geometry" instance=ExtResource("3_22cqp")]
 transform = Transform3D(0.983972, 0, -0.178321, 0, 1, 0, 0.178321, 0, 0.983972, -6.27383, 4.43805, 1.13727)
+
+[node name="Branch3" parent="Geometry" instance=ExtResource("3_22cqp")]
+transform = Transform3D(0.993048, 0, 0.117711, 0, 1, 0, -0.117711, 0, 0.993048, -16.5434, 6.21094, -0.31346)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_22cqp")
@@ -59,20 +62,31 @@ editor_only = true
 [node name="CameraPivot" type="Node3D" parent="."]
 script = ExtResource("4_nk1il")
 focus_path = NodePath("../Focus")
+distance = 13.5
 max_angle = 19.035
-min_angle = -5.03
+min_angle = -25.29
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13.9773)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13.5)
+fov = 85.0
 size = 20.0
 
-[node name="Focus" type="Node3D" parent="." node_paths=PackedStringArray("player", "lookdown_timer")]
+[node name="Focus" type="Node3D" parent="." node_paths=PackedStringArray("player", "camera", "lookdown_timer", "lookup_timer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.5124, 0.8, 0)
 script = ExtResource("2_52x1o")
 player = NodePath("../Player")
+camera = NodePath("../CameraPivot")
 lookdown_timer = NodePath("LookdownHoldTimer")
+lookup_timer = NodePath("LookupHoldTimer")
+lookdown_distance = -5.8
+lookdown_angle = 8.8
 
 [node name="LookdownHoldTimer" type="Timer" parent="Focus"]
+wait_time = 0.7
+one_shot = true
+ignore_time_scale = true
+
+[node name="LookupHoldTimer" type="Timer" parent="Focus"]
 wait_time = 0.7
 one_shot = true
 ignore_time_scale = true
@@ -81,15 +95,18 @@ ignore_time_scale = true
 
 [node name="Player" parent="." instance=ExtResource("3_iincs")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -21.5124, 0.8, 0)
+wall_min_slide_angle = 0.436332
 
 [node name="PlayerLight" type="OmniLight3D" parent="." node_paths=PackedStringArray("player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.095, 4.495)
-light_color = Color(0.821647, 0.75231, 0.705559, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84, 2.585)
+light_color = Color(0.931451, 0.902157, 0.882603, 1)
+light_energy = 1.265
 omni_range = 10.2634
-omni_attenuation = 0.798
+omni_attenuation = 0.273
 script = ExtResource("6_nk1il")
 player = NodePath("../Player")
-y_offset = 2.095
-z_offset = 4.495
+y_offset = 0.84
+z_offset = 2.585
 
 [connection signal="timeout" from="Focus/LookdownHoldTimer" to="Focus" method="_on_lookdown_hold_timer_timeout"]
+[connection signal="timeout" from="Focus/LookupHoldTimer" to="Focus" method="_on_lookup_hold_timer_timeout"]

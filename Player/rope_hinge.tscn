@@ -1,0 +1,525 @@
+[gd_scene load_steps=15 format=3 uid="uid://c64x5fukj4i1x"]
+
+[ext_resource type="Script" uid="uid://pv1jqayjnqso" path="res://Player/rope_hinge.gd" id="1_863nu"]
+[ext_resource type="PackedScene" uid="uid://b4u1ehufnq05w" path="res://Player/rope_end.tscn" id="2_32fhh"]
+[ext_resource type="Script" uid="uid://ce05v1xjpadmy" path="res://Player/link_mesh.gd" id="3_gkk6a"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8m1ff"]
+friction = 0.3
+bounce = 0.9
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_32fhh"]
+radius = 0.3
+
+[sub_resource type="SphereMesh" id="SphereMesh_8m1ff"]
+radius = 0.3
+height = 0.6
+radial_segments = 8
+rings = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8m1ff"]
+blend_mode = 1
+albedo_color = Color(0.972974, 0.220898, 0.369753, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_32fhh"]
+radius = 0.08
+height = 0.16
+radial_segments = 8
+rings = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gkk6a"]
+shading_mode = 0
+albedo_color = Color(1, 0.763847, 0.557099, 1)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_32fhh"]
+friction = 0.5
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_32fhh"]
+radius = 0.12
+height = 0.32
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_32fhh"]
+top_radius = 0.12
+bottom_radius = 0.12
+height = 0.576
+radial_segments = 8
+rings = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_32fhh"]
+diffuse_mode = 3
+albedo_color = Color(0.671715, 0.615867, 0.367783, 1)
+metallic_specular = 0.08
+
+[sub_resource type="Curve3D" id="Curve3D_gkk6a"]
+
+[node name="RopeHinge" type="RigidBody3D"]
+collision_layer = 4
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+mass = 0.7
+physics_material_override = SubResource("PhysicsMaterial_8m1ff")
+gravity_scale = 2.0
+lock_rotation = true
+continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 2
+script = ExtResource("1_863nu")
+debug = false
+rope_end_scene = ExtResource("2_32fhh")
+link_length = 0.32
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -4.37114e-08, 1, -1, 0, -4.37114e-08, 0, -1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("SphereShape3D_32fhh")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_8m1ff")
+surface_material_override/0 = SubResource("StandardMaterial3D_8m1ff")
+
+[node name="Hinges" type="Node3D" parent="."]
+
+[node name="Hinge1" type="Generic6DOFJoint3D" parent="Hinges"]
+exclude_nodes_from_collision = false
+
+[node name="Debug" type="MeshInstance3D" parent="Hinges/Hinge1"]
+visible = false
+mesh = SubResource("SphereMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_gkk6a")
+
+[node name="Hinge2" type="Generic6DOFJoint3D" parent="Hinges"]
+exclude_nodes_from_collision = false
+
+[node name="Debug" type="MeshInstance3D" parent="Hinges/Hinge2"]
+visible = false
+mesh = SubResource("SphereMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_gkk6a")
+
+[node name="Hinge3" type="Generic6DOFJoint3D" parent="Hinges"]
+exclude_nodes_from_collision = false
+
+[node name="Debug" type="MeshInstance3D" parent="Hinges/Hinge3"]
+visible = false
+mesh = SubResource("SphereMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_gkk6a")
+
+[node name="Hinge4" type="Generic6DOFJoint3D" parent="Hinges"]
+exclude_nodes_from_collision = false
+
+[node name="Debug" type="MeshInstance3D" parent="Hinges/Hinge4"]
+visible = false
+mesh = SubResource("SphereMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_gkk6a")
+
+[node name="Hinge5" type="Generic6DOFJoint3D" parent="Hinges"]
+exclude_nodes_from_collision = false
+
+[node name="Debug" type="MeshInstance3D" parent="Hinges/Hinge5"]
+visible = false
+mesh = SubResource("SphereMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_gkk6a")
+
+[node name="Hinge6" type="Generic6DOFJoint3D" parent="Hinges"]
+exclude_nodes_from_collision = false
+
+[node name="Debug" type="MeshInstance3D" parent="Hinges/Hinge6"]
+visible = false
+mesh = SubResource("SphereMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_gkk6a")
+
+[node name="Hinge7" type="Generic6DOFJoint3D" parent="Hinges"]
+exclude_nodes_from_collision = false
+
+[node name="Debug" type="MeshInstance3D" parent="Hinges/Hinge7"]
+visible = false
+mesh = SubResource("SphereMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_gkk6a")
+
+[node name="Hinge8" type="Generic6DOFJoint3D" parent="Hinges"]
+exclude_nodes_from_collision = false
+
+[node name="Debug" type="MeshInstance3D" parent="Hinges/Hinge8"]
+visible = false
+mesh = SubResource("SphereMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_gkk6a")
+
+[node name="Hinge9" type="Generic6DOFJoint3D" parent="Hinges"]
+exclude_nodes_from_collision = false
+
+[node name="Debug" type="MeshInstance3D" parent="Hinges/Hinge9"]
+visible = false
+mesh = SubResource("SphereMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_gkk6a")
+
+[node name="Hinge10" type="Generic6DOFJoint3D" parent="Hinges"]
+exclude_nodes_from_collision = false
+
+[node name="Debug" type="MeshInstance3D" parent="Hinges/Hinge10"]
+visible = false
+mesh = SubResource("SphereMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_gkk6a")
+
+[node name="Hinge11" type="Generic6DOFJoint3D" parent="Hinges"]
+exclude_nodes_from_collision = false
+
+[node name="Debug" type="MeshInstance3D" parent="Hinges/Hinge11"]
+visible = false
+mesh = SubResource("SphereMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_gkk6a")
+
+[node name="Hinge12" type="Generic6DOFJoint3D" parent="Hinges"]
+exclude_nodes_from_collision = false
+
+[node name="Debug" type="MeshInstance3D" parent="Hinges/Hinge12"]
+visible = false
+mesh = SubResource("SphereMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_gkk6a")
+
+[node name="Hinge13" type="Generic6DOFJoint3D" parent="Hinges"]
+exclude_nodes_from_collision = false
+
+[node name="Debug" type="MeshInstance3D" parent="Hinges/Hinge13"]
+visible = false
+mesh = SubResource("SphereMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_gkk6a")
+
+[node name="Hinge14" type="Generic6DOFJoint3D" parent="Hinges"]
+exclude_nodes_from_collision = false
+
+[node name="Debug" type="MeshInstance3D" parent="Hinges/Hinge14"]
+visible = false
+mesh = SubResource("SphereMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_gkk6a")
+
+[node name="Links" type="Node3D" parent="."]
+
+[node name="Link1" type="RigidBody3D" parent="Links"]
+collision_layer = 8
+input_ray_pickable = false
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+physics_material_override = SubResource("PhysicsMaterial_32fhh")
+gravity_scale = 2.0
+freeze = true
+continuous_cd = true
+max_contacts_reported = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Links/Link1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+shape = SubResource("CapsuleShape3D_32fhh")
+disabled = true
+debug_color = Color(0.837508, 0.34466, 0.465256, 0.729412)
+
+[node name="Mesh" type="MeshInstance3D" parent="Links/Link1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.032, 0)
+visible = false
+mesh = SubResource("CylinderMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_32fhh")
+script = ExtResource("3_gkk6a")
+
+[node name="Link2" type="RigidBody3D" parent="Links"]
+collision_layer = 8
+input_ray_pickable = false
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+physics_material_override = SubResource("PhysicsMaterial_32fhh")
+gravity_scale = 2.0
+freeze = true
+continuous_cd = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Links/Link2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+shape = SubResource("CapsuleShape3D_32fhh")
+disabled = true
+debug_color = Color(0.837508, 0.34466, 0.465256, 0.729412)
+
+[node name="Mesh" type="MeshInstance3D" parent="Links/Link2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.032, 0)
+visible = false
+mesh = SubResource("CylinderMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_32fhh")
+script = ExtResource("3_gkk6a")
+
+[node name="Link3" type="RigidBody3D" parent="Links"]
+collision_layer = 8
+input_ray_pickable = false
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+physics_material_override = SubResource("PhysicsMaterial_32fhh")
+gravity_scale = 2.0
+freeze = true
+continuous_cd = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Links/Link3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+shape = SubResource("CapsuleShape3D_32fhh")
+disabled = true
+debug_color = Color(0.837508, 0.34466, 0.465256, 0.729412)
+
+[node name="Mesh" type="MeshInstance3D" parent="Links/Link3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.032, 0)
+visible = false
+mesh = SubResource("CylinderMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_32fhh")
+script = ExtResource("3_gkk6a")
+
+[node name="Link4" type="RigidBody3D" parent="Links"]
+collision_layer = 8
+input_ray_pickable = false
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+physics_material_override = SubResource("PhysicsMaterial_32fhh")
+gravity_scale = 2.0
+freeze = true
+continuous_cd = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Links/Link4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+shape = SubResource("CapsuleShape3D_32fhh")
+disabled = true
+debug_color = Color(0.837508, 0.34466, 0.465256, 0.729412)
+
+[node name="Mesh" type="MeshInstance3D" parent="Links/Link4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.032, 0)
+visible = false
+mesh = SubResource("CylinderMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_32fhh")
+script = ExtResource("3_gkk6a")
+
+[node name="Link5" type="RigidBody3D" parent="Links"]
+collision_layer = 8
+input_ray_pickable = false
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+physics_material_override = SubResource("PhysicsMaterial_32fhh")
+gravity_scale = 2.0
+freeze = true
+continuous_cd = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Links/Link5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+shape = SubResource("CapsuleShape3D_32fhh")
+disabled = true
+debug_color = Color(0.837508, 0.34466, 0.465256, 0.729412)
+
+[node name="Mesh" type="MeshInstance3D" parent="Links/Link5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.032, 0)
+visible = false
+mesh = SubResource("CylinderMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_32fhh")
+script = ExtResource("3_gkk6a")
+
+[node name="Link6" type="RigidBody3D" parent="Links"]
+collision_layer = 8
+input_ray_pickable = false
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+physics_material_override = SubResource("PhysicsMaterial_32fhh")
+gravity_scale = 2.0
+freeze = true
+continuous_cd = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Links/Link6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+shape = SubResource("CapsuleShape3D_32fhh")
+disabled = true
+debug_color = Color(0.837508, 0.34466, 0.465256, 0.729412)
+
+[node name="Mesh" type="MeshInstance3D" parent="Links/Link6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.032, 0)
+visible = false
+mesh = SubResource("CylinderMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_32fhh")
+script = ExtResource("3_gkk6a")
+
+[node name="Link7" type="RigidBody3D" parent="Links"]
+collision_layer = 8
+input_ray_pickable = false
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+physics_material_override = SubResource("PhysicsMaterial_32fhh")
+gravity_scale = 2.0
+freeze = true
+continuous_cd = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Links/Link7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+shape = SubResource("CapsuleShape3D_32fhh")
+disabled = true
+debug_color = Color(0.837508, 0.34466, 0.465256, 0.729412)
+
+[node name="Mesh" type="MeshInstance3D" parent="Links/Link7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.032, 0)
+visible = false
+mesh = SubResource("CylinderMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_32fhh")
+script = ExtResource("3_gkk6a")
+
+[node name="Link8" type="RigidBody3D" parent="Links"]
+collision_layer = 8
+input_ray_pickable = false
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+physics_material_override = SubResource("PhysicsMaterial_32fhh")
+gravity_scale = 2.0
+freeze = true
+continuous_cd = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Links/Link8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+shape = SubResource("CapsuleShape3D_32fhh")
+disabled = true
+debug_color = Color(0.837508, 0.34466, 0.465256, 0.729412)
+
+[node name="Mesh" type="MeshInstance3D" parent="Links/Link8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.032, 0)
+visible = false
+mesh = SubResource("CylinderMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_32fhh")
+script = ExtResource("3_gkk6a")
+
+[node name="Link9" type="RigidBody3D" parent="Links"]
+collision_layer = 8
+input_ray_pickable = false
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+physics_material_override = SubResource("PhysicsMaterial_32fhh")
+gravity_scale = 2.0
+freeze = true
+continuous_cd = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Links/Link9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+shape = SubResource("CapsuleShape3D_32fhh")
+disabled = true
+debug_color = Color(0.837508, 0.34466, 0.465256, 0.729412)
+
+[node name="Mesh" type="MeshInstance3D" parent="Links/Link9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.032, 0)
+visible = false
+mesh = SubResource("CylinderMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_32fhh")
+script = ExtResource("3_gkk6a")
+
+[node name="Link10" type="RigidBody3D" parent="Links"]
+collision_layer = 8
+input_ray_pickable = false
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+physics_material_override = SubResource("PhysicsMaterial_32fhh")
+gravity_scale = 2.0
+freeze = true
+continuous_cd = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Links/Link10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+shape = SubResource("CapsuleShape3D_32fhh")
+disabled = true
+debug_color = Color(0.837508, 0.34466, 0.465256, 0.729412)
+
+[node name="Mesh" type="MeshInstance3D" parent="Links/Link10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.032, 0)
+visible = false
+mesh = SubResource("CylinderMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_32fhh")
+script = ExtResource("3_gkk6a")
+
+[node name="Link11" type="RigidBody3D" parent="Links"]
+collision_layer = 8
+input_ray_pickable = false
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+physics_material_override = SubResource("PhysicsMaterial_32fhh")
+gravity_scale = 2.0
+freeze = true
+continuous_cd = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Links/Link11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+shape = SubResource("CapsuleShape3D_32fhh")
+disabled = true
+debug_color = Color(0.837508, 0.34466, 0.465256, 0.729412)
+
+[node name="Mesh" type="MeshInstance3D" parent="Links/Link11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.032, 0)
+visible = false
+mesh = SubResource("CylinderMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_32fhh")
+script = ExtResource("3_gkk6a")
+
+[node name="Link12" type="RigidBody3D" parent="Links"]
+collision_layer = 8
+input_ray_pickable = false
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+physics_material_override = SubResource("PhysicsMaterial_32fhh")
+gravity_scale = 2.0
+freeze = true
+continuous_cd = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Links/Link12"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+shape = SubResource("CapsuleShape3D_32fhh")
+disabled = true
+debug_color = Color(0.837508, 0.34466, 0.465256, 0.729412)
+
+[node name="Mesh" type="MeshInstance3D" parent="Links/Link12"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.032, 0)
+visible = false
+mesh = SubResource("CylinderMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_32fhh")
+script = ExtResource("3_gkk6a")
+
+[node name="Link13" type="RigidBody3D" parent="Links"]
+collision_layer = 8
+input_ray_pickable = false
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+physics_material_override = SubResource("PhysicsMaterial_32fhh")
+gravity_scale = 2.0
+freeze = true
+continuous_cd = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Links/Link13"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+shape = SubResource("CapsuleShape3D_32fhh")
+disabled = true
+debug_color = Color(0.837508, 0.34466, 0.465256, 0.729412)
+
+[node name="Mesh" type="MeshInstance3D" parent="Links/Link13"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.032, 0)
+visible = false
+mesh = SubResource("CylinderMesh_32fhh")
+surface_material_override/0 = SubResource("StandardMaterial3D_32fhh")
+script = ExtResource("3_gkk6a")
+
+[node name="RopePath" type="Path3D" parent="."]
+curve = SubResource("Curve3D_gkk6a")
+
+[node name="RopePathFollow" type="PathFollow3D" parent="RopePath"]
+unique_name_in_owner = true
+
+[node name="Mesh" type="MeshInstance3D" parent="RopePath/RopePathFollow"]
+mesh = SubResource("SphereMesh_8m1ff")
+surface_material_override/0 = SubResource("StandardMaterial3D_8m1ff")
+
+[node name="RollTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="RollTimer" to="." method="_on_roll_timer_timeout"]

@@ -8,10 +8,9 @@ class_name Player
 @export_range(1.0, 1000.0) var walk_speed := 5.0
 @export_range(1.0, 100.0) var run_speed := 7.5
 @export_range(1.0, 100.0) var ground_acceleration := 50.0
-@export_range(1.0, 100.0) var slide_acceleration := 12.0
 @export_range(1.0, 100.0) var air_acceleration := 40.0
 ## If true, jump is performed by holding the jump button then releasing it
-@export var hold_to_jump := false
+#@export var hold_to_jump := false
 @export_range(0.0, 10.0) var jump_height := 1.35
 @export_range(0.5, 100.0) var gravity := 50.0
 @export_range(0.5, 100.0) var max_fall_speed := 15.0
@@ -35,6 +34,15 @@ class_name Player
 		for c: RayCast3D in %LedgeCheckRayCasts.get_children():
 			pass
 
+@export_subgroup("Animation")
+@export var animation: AnimationPlayer
+
+@export_subgroup("Rope")
+@export var rope_scene: PackedScene
+var in_climb_area := false
+var can_throw_rope := true
+var rope_links_in_area: Array[Node3D]
+
 @export_subgroup("Debug")
 @export_node_path("MeshInstance3D") var debug_mesh_path: NodePath = NodePath("DebugMesh")
 
@@ -51,8 +59,7 @@ var is_running := false
 var input_direction := Vector2.ZERO
 var move_input := 0.0
 var vertical_input := 0.0
-var last_strong_move_input := 0.0
-
+var last_strong_move_input := 1.0
 
 func _ready():
 	if Engine.is_editor_hint():
@@ -62,7 +69,7 @@ func _ready():
 	for c in $State.get_children():
 		if c is State:
 			c.transition.connect(_on_state_transition)
-	set_debug_color(Constants.PlayerStateToColorLookup[current_state])
+	#set_debug_color(Constants.PlayerStateToColorLookup[current_state])
 
 
 func _process(delta: float):
@@ -72,11 +79,17 @@ func _process(delta: float):
 	if disable_input:
 		return
 	
+	if (
+		$RopeThrowCooldown.is_stopped() and 
+		(current_state == Constants.PlayerState.IDLE or current_state == Constants.PlayerState.RUNNING)
+	):
+		can_throw_rope = true
+	
 	is_running = Input.is_action_pressed("run")
 	speed = walk_speed
 	#speed = walk_speed if not is_running else run_speed
 	
-	input_direction = Input.get_vector("left", "right", "up", "down")
+	input_direction = Input.get_vector("left", "right", "down", "up")
 	
 	# Normalize direction if vector has length larger than 1
 	if input_direction.length() > 1.0:
@@ -85,7 +98,11 @@ func _process(delta: float):
 	move_input = input_direction.x
 	vertical_input = input_direction.y
 	
-	if not current_state == Constants.PlayerState.ONLEDGE and absf(move_input) > 0.05:
+	if (
+		not current_state == Constants.PlayerState.ONLEDGE and
+		not current_state == Constants.PlayerState.THROWING and
+		absf(move_input) > 0.05
+	):
 		last_strong_move_input = move_input
 
 
@@ -93,16 +110,20 @@ func _physics_process(delta: float):
 	if Engine.is_editor_hint():
 		return
 	
+	in_climb_area = rope_links_in_area and not rope_links_in_area.is_empty()
+	
 	# Add velocity from gravity and movement input together
 	velocity = move_velocity + vertical_velocity
 	
 	# Move and slide the player character
 	move_and_slide()
+	move_velocity = Vector3(velocity.x, 0, 0)
 
 
-func jump():
+func jump(apply_horizontal: bool = false):
 	vertical_velocity += Vector3.UP * jump_velocity
-	#move_velocity += Vector3.RIGHT * move_input * jump_velocity * 0.05
+	if apply_horizontal:
+		move_velocity = Vector3.RIGHT * move_input * walk_speed
 
 
 func set_debug_color(color: Color):
@@ -113,7 +134,7 @@ func set_debug_color(color: Color):
 
 func _on_state_transition(from_state: State, to_state_name: String):
 	current_state = Constants.StringToPlayerStateLookup[to_state_name]
-	set_debug_color(Constants.PlayerStateToColorLookup[current_state])
+	#set_debug_color(Constants.PlayerStateToColorLookup[current_state])
 
 
 func freeze():
@@ -122,3 +143,44 @@ func freeze():
 
 func unfreeze():
 	$State.current_state.unfreeze()
+
+
+func play_animation(name: String, reset_speed: bool = true) -> void:
+	if animation.current_animation == name:
+		return
+	animation.play(name)
+	if reset_speed:
+		animation.speed_scale = 1
+
+
+func set_playback_speed(speed: float) -> void:
+	animation.speed_scale = speed
+
+
+func flip_sprite(value: bool) -> void:
+	$Sprite.flip_h = value
+
+
+func throw_rope() -> void:
+	if GameState.current_rope:
+		GameState.current_rope.delete()
+	
+	var new_rope: RopeHinge = rope_scene.instantiate()
+	var facing_direction = (Vector3.RIGHT * last_strong_move_input).normalized()
+	#new_rope.global_position = global_position + facing_direction * 1.5 + Vector3.UP * 1.5
+	#new_rope.global_rotation.y = 0.0 if facing_direction.x >= 0.0 else PI
+	new_rope.initial_impulse = (facing_direction + Vector3.UP) * 12.0 + get_real_velocity()
+	get_parent_node_3d().add_child(new_rope)
+	new_rope.global_position = global_position
+	GameState.current_rope = new_rope
+	#print(new_rope.initial_impulse)
+
+
+func _on_climb_area_body_entered(body: Node3D) -> void:
+	#print("enter")
+	rope_links_in_area.append(body)
+
+
+func _on_climb_area_body_exited(body: Node3D) -> void:
+	#print("exit")
+	rope_links_in_area.erase(body)

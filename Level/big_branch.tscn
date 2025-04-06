@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://jny1vnsbsso2"]
+
+[ext_resource type="PackedScene" uid="uid://cswqig5dlfnvd" path="res://Level/branch.tscn" id="1_580lg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_580lg"]
+size = Vector3(5.41656, 1.72467, 2.24805)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rsne8"]
+size = Vector3(2.28029, 1.19547, 2.24805)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3ugjo"]
+size = Vector3(2.10743, 1.19547, 2.24805)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yuwc5"]
+size = Vector3(2.10743, 0.852615, 2.24805)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lwg5x"]
+size = Vector3(2.10743, 0.533241, 2.24805)
+
+[node name="BigBranch" instance=ExtResource("1_580lg")]
+
+[node name="Branch" parent="." index="0"]
+transform = Transform3D(0, 1.87781, 0, -1.37852, 0, -1.27509, -1.27509, 0, 1.37852, 0, 0, 0)
+
+[node name="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(0.988481, -0.151347, 0, 0.151347, 0.988481, 0, 0, 0, 1, -2.58358, -0.0743731, 0)
+shape = SubResource("BoxShape3D_580lg")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1"]
+transform = Transform3D(0.974209, 0.225648, 0, -0.225648, 0.974209, 0, 0, 0, 1, -5.61215, 0.071768, 0)
+shape = SubResource("BoxShape3D_rsne8")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D" index="2"]
+transform = Transform3D(0.993938, -0.109942, 0, 0.109942, 0.993938, 0, 0, 0, 1, -7.56427, 0.202538, 0)
+shape = SubResource("BoxShape3D_3ugjo")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D" index="3"]
+transform = Transform3D(0.971578, -0.236719, 0, 0.236719, 0.971578, 0, 0, 0, 1, -9.59537, 0.0221953, 0)
+shape = SubResource("BoxShape3D_yuwc5")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="StaticBody3D" index="4"]
+transform = Transform3D(0.983512, 0.180845, 0, -0.180845, 0.983512, 0, 0, 0, 1, -11.6012, 0.146649, 0)
+shape = SubResource("BoxShape3D_lwg5x")

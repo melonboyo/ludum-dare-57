@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://0446addxasvd"]
 
-[ext_resource type="Script" uid="uid://domomqra22ul5" path="res://focus.gd" id="1_h2yge"]
-[ext_resource type="PackedScene" uid="uid://bypjr8y06p4s8" path="res://player.tscn" id="2_0xm2m"]
-[ext_resource type="Script" uid="uid://bvsogxgcesb8d" path="res://camera.gd" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://domomqra22ul5" path="res://Player/focus.gd" id="1_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bypjr8y06p4s8" path="res://Player/player.tscn" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://bvsogxgcesb8d" path="res://Player/camera.gd" id="3_h2yge"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_h2yge"]
 sky_top_color = Color(0.0276541, 0.0755392, 0.176058, 1)

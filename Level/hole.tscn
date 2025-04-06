@@ -1,6 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://cyhus5kujnsmk"]
+[gd_scene load_steps=11 format=3 uid="uid://cyhus5kujnsmk"]
 
 [ext_resource type="PackedScene" uid="uid://m2tdw6shs5u0" path="res://Assets/hole.glb" id="1_h8jsx"]
+[ext_resource type="Texture2D" uid="uid://ddvotavoskh4" path="res://Assets/hole_wood1.jpg" id="2_q5rn4"]
+[ext_resource type="Texture2D" uid="uid://c3o22mpiwueed" path="res://Assets/hole_wood1_normal.jpg" id="3_6qfoy"]
+[ext_resource type="Texture2D" uid="uid://cmxqcsyojgtq" path="res://Assets/hole_moss.jpg" id="4_71oi7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ji0ls"]
+resource_name = "tree"
+albedo_texture = ExtResource("2_q5rn4")
+roughness = 0.909449
+normal_enabled = true
+normal_scale = 0.2
+normal_texture = ExtResource("3_6qfoy")
+proximity_fade_distance = 59.0
+distance_fade_mode = 2
+distance_fade_max_distance = 5.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t2x7r"]
+resource_name = "ground"
+albedo_texture = ExtResource("4_71oi7")
+roughness = 0.870079
+distance_fade_mode = 2
+distance_fade_min_distance = 2.0
+distance_fade_max_distance = 9.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h8jsx"]
 size = Vector3(25.6063, 1, 3.30103)
@@ -22,6 +44,12 @@ transparency = 1
 albedo_texture = SubResource("GradientTexture2D_as8cg")
 
 [node name="Hole" instance=ExtResource("1_h8jsx")]
+
+[node name="Trunk" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_ji0ls")
+
+[node name="Ground" parent="." index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_t2x7r")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Ground" index="0"]
 

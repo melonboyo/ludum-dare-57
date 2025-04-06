@@ -14,7 +14,7 @@ normal_scale = 0.2
 normal_texture = ExtResource("3_7i0pq")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uur0d"]
-size = Vector3(5.3175, 0.820313, 5.52441)
+size = Vector3(5.3175, 0.820313, 2.24805)
 
 [node name="Branch" instance=ExtResource("1_uur0d")]
 

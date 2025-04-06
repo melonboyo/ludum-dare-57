@@ -5,11 +5,10 @@ class_name Constants
 enum PlayerState {
 	IDLE,
 	RUNNING,
-	READYJUMP,
-	SLIDING,
 	TALKING,
 	INAIR,
 	ONLEDGE,
+	THROWING,
 	CLIMBING,
 	FROZEN,
 }
@@ -17,11 +16,10 @@ enum PlayerState {
 const PlayerStates = {
 	PlayerState.IDLE : "Idle",
 	PlayerState.RUNNING : "Running",
-	PlayerState.READYJUMP : "ReadyJump",
-	PlayerState.SLIDING : "Sliding",
 	PlayerState.TALKING : "Talking",
 	PlayerState.INAIR : "InAir",
 	PlayerState.ONLEDGE : "OnLedge",
+	PlayerState.THROWING : "Throwing",
 	PlayerState.CLIMBING : "Climbing",
 	PlayerState.FROZEN : "Frozen",
 }
@@ -29,11 +27,10 @@ const PlayerStates = {
 const StringToPlayerStateLookup = {
 	 "Idle" : PlayerState.IDLE,
 	 "Running" : PlayerState.RUNNING,
-	 "ReadyJump" : PlayerState.READYJUMP,
-	 "Sliding" : PlayerState.SLIDING,
 	 "Talking" : PlayerState.TALKING,
 	 "InAir" : PlayerState.INAIR,
 	 "OnLedge" : PlayerState.ONLEDGE,
+	 "Throwing" : PlayerState.THROWING,
 	 "Climbing" : PlayerState.CLIMBING,
 	 "Frozen" : PlayerState.FROZEN,
 }
@@ -41,11 +38,8 @@ const StringToPlayerStateLookup = {
 const PlayerStateToColorLookup := {
 	PlayerState.IDLE : Color.WHITE,
 	PlayerState.RUNNING : Color.DARK_ORANGE,
-	PlayerState.READYJUMP : Color.LIGHT_SALMON,
-	PlayerState.SLIDING : Color.LIGHT_YELLOW,
 	PlayerState.TALKING : Color.HOT_PINK,
 	PlayerState.INAIR : Color.CADET_BLUE,
 	PlayerState.ONLEDGE : Color.CRIMSON,
-	PlayerState.CLIMBING : Color.SPRING_GREEN,
 	PlayerState.FROZEN : Color.CYAN,
 }

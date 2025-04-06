@@ -14,10 +14,12 @@ var ledge_normal := Vector2.UP
 var ledge_position := Vector3.ZERO
 var ledge_position_top := Vector3.ZERO
 
-const PLAYER_RADIUS := 0.25
+const PLAYER_RADIUS := 0.2
 
 
 func enter():
+	player.play_animation("onledge")
+	
 	ledge_check_ray.force_raycast_update()
 	ledge_top_ray.force_raycast_update()
 	ledge_bottom_ray.force_raycast_update()
@@ -25,7 +27,7 @@ func enter():
 	var ledge_normal3 := ledge_bottom_ray.get_collision_normal()
 	ledge_normal = Vector2(ledge_normal3.x, 0.0).normalized()
 	ledge_position_top = ledge_check_ray.get_collision_point()
-	ledge_position = Vector3(ledge_position.x, ledge_position_top.y + 0.4, 0.0)
+	ledge_position = Vector3(ledge_position.x, ledge_position_top.y + 0.01, 0.0)
 	var ledge_direction3 = player.global_position.direction_to(ledge_position)
 	ledge_direction = Vector2(ledge_direction3.x, ledge_direction3.z).normalized()
 	ledge_position = ledge_position - Vector3(ledge_direction.x, 0.0, 0.0) * PLAYER_RADIUS
@@ -38,7 +40,9 @@ func enter():
 	player.vertical_velocity = Vector3.ZERO
 
 
-func update(_delta):
+func update(delta):
+	super(delta)
+	
 	if Input.is_action_just_pressed("down"):
 		leave_ledge()
 		return
@@ -61,7 +65,7 @@ func leave_ledge():
 func physics_update(delta):
 	if Input.is_action_just_pressed("jump"):
 		ledge_timer.start()
-		player.jump()
+		player.jump(true)
 		transition.emit(self, "InAir")
 		return
 	

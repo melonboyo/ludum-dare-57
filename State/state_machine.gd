@@ -22,8 +22,9 @@ func _ready():
 func _process(delta):
 	if not current_state:
 		return
+	GameState.player_state = Constants.StringToPlayerStateLookup.get(current_state.name)
 	current_state.update(delta)
-	print(current_state.name)
+	#print(current_state.name)
 
 
 func _physics_process(delta):

@@ -13,14 +13,27 @@ class_name PlayerInAir
 var allow_ledge_grab := true
 
 
-func update(_delta):
+func enter():
+	pass
+
+
+func update(delta):
+	super(delta)
+	
 	if Input.is_action_just_pressed("jump"):
 		if not early_jump_buffer.is_stopped():
 			early_jump_buffer.stop()
 		early_jump_buffer.start()
+	
+	if player.velocity.y > 0.0:
+		player.play_animation("jumpup")
+	else:
+		player.play_animation("jumpdown")
 
 
 func physics_update(delta):
+	super(delta)
+	
 	if player.is_on_floor():
 		if player.move_velocity.length() > 0.1:
 			transition.emit(self, "Running")
@@ -31,6 +44,10 @@ func physics_update(delta):
 	if allow_ledge_grab and is_at_ledge():
 		allow_ledge_grab = false
 		transition.emit(self, "OnLedge")
+		return
+	
+	if Input.is_action_just_pressed("throw") and player.can_throw_rope:
+		transition.emit(self, "Throwing")
 		return
 	
 	var desired_velocity = Vector3.RIGHT * player.move_input * player.speed

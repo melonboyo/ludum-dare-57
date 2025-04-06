@@ -5,6 +5,10 @@ class_name PlayerState
 @onready var player: Player = get_node_or_null("../..")
 
 
+func update(delta):
+	player.flip_sprite(player.last_strong_move_input < 0.0)
+
+
 func freeze():
 	transition.emit(self, "Frozen")
 

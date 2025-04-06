@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://b4u1ehufnq05w"]
+
+[ext_resource type="Script" uid="uid://cer6c0q6uk36t" path="res://Player/rope_end.gd" id="1_gggfd"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gggfd"]
+friction = 0.17
+bounce = 0.1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gggfd"]
+radius = 0.3
+
+[sub_resource type="SphereMesh" id="SphereMesh_gggfd"]
+radius = 0.15
+height = 0.3
+radial_segments = 8
+rings = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_licp8"]
+blend_mode = 1
+albedo_color = Color(0.890406, 0.842349, 0.807289, 1)
+metallic_specular = 0.0
+
+[node name="RopeEnd" type="RigidBody3D"]
+collision_layer = 16
+input_ray_pickable = false
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+mass = 0.5
+physics_material_override = SubResource("PhysicsMaterial_gggfd")
+gravity_scale = 2.0
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_gggfd")
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -4.37114e-08, 1, -1, 0, -4.37114e-08, 0, -1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("SphereShape3D_gggfd")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_gggfd")
+surface_material_override/0 = SubResource("StandardMaterial3D_licp8")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_energy = 0.605
+omni_range = 3.26273
