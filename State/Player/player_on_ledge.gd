@@ -47,7 +47,7 @@ func update(delta):
 	super(delta)
 	
 	if player.in_climb_area:
-		if Input.is_action_just_pressed("up"):
+		if Input.is_action_just_pressed("climb"):
 			transition.emit(self, "Climbing")
 			return
 	
@@ -72,7 +72,7 @@ func leave_ledge():
 
 func physics_update(delta):
 	if player.in_climb_area:
-		if Input.is_action_just_pressed("up"):
+		if Input.is_action_just_pressed("climb"):
 			transition.emit(self, "Climbing")
 			return
 	

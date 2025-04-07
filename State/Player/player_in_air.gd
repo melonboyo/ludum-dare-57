@@ -16,18 +16,20 @@ var allow_ledge_grab := true
 
 
 func enter():
-	pass
+	fall_player.play()
+	fall_player.volume_db = -50.0
 
 
 func exit():
-	fall_player.volume_db = -80.0
+	fall_player.volume_db = -50.0
+	fall_player.stop()
 
 
 func update(delta):
 	super(delta)
 	
 	if player.in_climb_area:
-		if Input.is_action_just_pressed("up"):
+		if Input.is_action_just_pressed("climb"):
 			transition.emit(self, "Climbing")
 			return
 	
@@ -46,12 +48,11 @@ func physics_update(delta):
 	super(delta)
 	
 	if player.in_climb_area:
-		if Input.is_action_just_pressed("up"):
+		if Input.is_action_just_pressed("climb"):
 			transition.emit(self, "Climbing")
 			return
 	
 	if player.is_on_floor():
-		print(player.prev_velocity.y)
 		if player.prev_velocity.y < -35.0:
 			transition.emit(self, "Stunned")
 		elif player.move_velocity.length() > 0.1:
@@ -76,7 +77,7 @@ func physics_update(delta):
 	player.vertical_velocity += Vector3.DOWN * player.gravity * delta
 	player.vertical_velocity.y = maxf(player.vertical_velocity.y, -player.max_fall_speed)
 	
-	fall_player.volume_db = remap(player.get_real_velocity().y, 0.0, -42.0, -80.0, -16.0)
+	fall_player.volume_db = remap(player.get_real_velocity().y, 0.0, -42.0, -50.0, -16.0)
 	
 	rotate_to_direction_instant(player.last_strong_move_input)
 

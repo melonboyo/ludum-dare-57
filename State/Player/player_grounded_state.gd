@@ -8,7 +8,7 @@ class_name PlayerGroundedState
 
 func update(delta):
 	if player.in_climb_area:
-		if Input.is_action_just_pressed("up"):
+		if Input.is_action_just_pressed("climb"):
 			transition.emit(self, "Climbing")
 			return
 	
@@ -21,7 +21,7 @@ func update(delta):
 
 func physics_update(delta):
 	if player.in_climb_area:
-		if Input.is_action_just_pressed("up"):
+		if Input.is_action_just_pressed("climb"):
 			transition.emit(self, "Climbing")
 			return
 	

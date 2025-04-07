@@ -8,7 +8,7 @@
 offsets = PackedFloat32Array(0, 0.114754, 0.254098, 0.393443, 0.532787, 0.721311, 0.860656, 0.918033, 1)
 colors = PackedColorArray(0.00536004, 0.0219596, 0.0867736, 1, 0.271518, 0.179319, 0.199144, 1, 0.922885, 0.756117, 0.371833, 1, 0.536479, 0.431741, 0.280601, 1, 0.964518, 0.642086, 0.213889, 1, 0.409866, 0.317687, 0.213878, 1, 0.903534, 0.535269, 0.170563, 1, 0.564913, 0.42604, 0.243496, 1, 0.822915, 0.645878, 0.376381, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_apvc5"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7fh5d"]
 gradient = SubResource("Gradient_r8per")
 width = 16
 height = 128
@@ -19,13 +19,13 @@ fill_to = Vector2(0, 0)
 shading_mode = 2
 vertex_color_use_as_albedo = true
 albedo_color = Color(0.720467, 0.720468, 0.720467, 1)
-albedo_texture = SubResource("GradientTexture2D_apvc5")
+albedo_texture = SubResource("GradientTexture2D_7fh5d")
 metallic_specular = 0.12
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7fh5d"]
 resource_name = "tree"
 cull_mode = 2
-albedo_color = Color(0.317171, 0.288808, 0.238677, 1)
+albedo_color = Color(0.415085, 0.445949, 0.453342, 1)
 albedo_texture = ExtResource("2_7fh5d")
 roughness = 0.909449
 normal_enabled = true
@@ -47,6 +47,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_r8per")
 surface_material_override/0 = SubResource("StandardMaterial3D_7fh5d")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Bridge" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0290375, -0.163042, -0.13634)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bridge/StaticBody3D" index="0"]
 transform = Transform3D(0.96188, -0.273472, 0, 0.273472, 0.96188, 0, 0, 0, 1, 15.3255, 0.899259, 0)

@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://tbavg6pqmif2"
+path="res://.godot/imported/dance.aseprite-c8e1eaba952c55203e034fd43ba30f93.res"
+
+[deps]
+
+source_file="res://Assets/dance.aseprite"
+dest_files=["res://.godot/imported/dance.aseprite-c8e1eaba952c55203e034fd43ba30f93.res"]
+
+[params]
+

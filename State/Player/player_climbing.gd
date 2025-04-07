@@ -3,9 +3,12 @@ class_name PlayerClimbing
 
 
 const vertical_offset := 0.3
+var just_entered := false
 
 
 func enter():
+	just_entered = true
+	
 	player.disable_velocities = true
 	player.play_animation("climb")
 	player.set_playback_speed(0.0)
@@ -22,7 +25,9 @@ func enter():
 	var offset = GameState.current_rope_path.get_curve().get_closest_offset(
 		GameState.current_rope_path_follow.position
 	)
-	GameState.current_rope_path_follow.progress = offset
+	GameState.current_rope_path_follow.progress = clampf(
+		offset, 0.0, GameState.current_rope_path.get_curve().get_baked_length()
+	)
 	GameState.current_rope_path.force_update_transform()
 	GameState.current_rope_path_follow.force_update_transform()
 	
@@ -54,6 +59,12 @@ func physics_update(delta: float) -> void:
 		transition.emit(self, "InAir")
 		return
 	
+	if Input.is_action_just_pressed("climb") and not just_entered:
+		transition.emit(self, "InAir")
+		return
+	
+	just_entered = false
+	
 	if not player.rope_links_in_area.is_empty():
 		for l: RigidBody3D in player.rope_links_in_area:
 			l.add_constant_force(Vector3.RIGHT * player.move_input * 0.2)
@@ -65,9 +76,8 @@ func physics_update(delta: float) -> void:
 		move = player.climb_speed * delta
 	if Input.is_action_pressed("up"):
 		move = -player.climb_speed * delta
-	GameState.current_rope_path_follow.progress += move
 	GameState.current_rope_path_follow.progress = clampf(
-		GameState.current_rope_path_follow.progress, 
+		move + GameState.current_rope_path_follow.progress, 
 		0.0, GameState.current_rope_path.get_curve().get_baked_length()
 	)
 	GameState.current_rope_path_follow.force_update_transform()

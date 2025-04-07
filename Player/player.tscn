@@ -465,8 +465,7 @@ bus = &"Effects"
 
 [node name="Fall" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("16_7emwf")
-volume_db = -80.0
-autoplay = true
+volume_db = -50.0
 bus = &"Effects"
 parameters/looping = true
 
