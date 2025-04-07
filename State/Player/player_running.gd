@@ -8,7 +8,10 @@ var previous
 func update(delta):
 	super(delta)
 	
-	if absf(player.move_input) < 0.05 and absf(player.get_real_velocity().x) < 0.1 * player.speed:
+	if player.current_state == Constants.PlayerState.THROWING:
+		return
+	
+	if absf(player.move_input) < 0.2 and absf(player.get_real_velocity().x) < 0.1 * player.speed:
 		transition.emit(self, "Idle")
 		return
 

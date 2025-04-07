@@ -2,8 +2,11 @@
 extends Node3D
 class_name Camera
 
-@export_node_path("Node3D") var focus_path: NodePath
-@onready var focus: Node3D = get_node(focus_path)
+@export var player: Player
+@export var focus: Node3D
+
+var override_angle := false
+var overridden_angle := Vector3.ZERO
 
 @export var distance := 12.0:
 	set(value):
@@ -58,3 +61,14 @@ func _physics_process(delta):
 	if Engine.is_editor_hint():
 		return
 	global_position = global_position.lerp(focus.global_position + Vector3.UP * y_offset, delta * 5.0)
+
+
+func _on_camera_work_area_tree_trunk_body_entered(body: Node3D) -> void:
+	focus = %TreeTrunkFocus
+	overridden_angle = %TreeTrunkFocus.global_rotation
+	override_angle = true
+
+
+func _on_camera_work_area_tree_trunk_body_exited(body: Node3D) -> void:
+	override_angle = false
+	focus = player

@@ -15,8 +15,10 @@ var lookup := false
 
 
 func _process(delta: float) -> void:
-	if not (GameState.player_state == Constants.PlayerState.IDLE or GameState.player_state == Constants.PlayerState.RUNNING):
+	if not GameState.player_state == Constants.PlayerState.IDLE:
 		stop()
+		return
+	if camera.override_angle:
 		return
 	if (
 		Input.is_action_pressed("down") and 
@@ -50,7 +52,13 @@ func _physics_process(delta: float) -> void:
 	var angle := deg_to_rad(camera.default_angle) if not lookdown else deg_to_rad(camera.min_angle)
 	angle = angle if not lookup else deg_to_rad(camera.max_angle)
 	var angle_speed := 1.0*PI if (lookdown or lookup) else 0.8*PI
+	if camera.override_angle:
+		angle = camera.overridden_angle.x
 	camera.rotation.x = lerp_angle(camera.rotation.x, angle, delta * angle_speed)
+	if camera.override_angle:
+		camera.rotation.y = lerp_angle(camera.rotation.y, camera.overridden_angle.y, delta * angle_speed)
+	else:
+		camera.rotation.y = lerp_angle(camera.rotation.y, 0, delta * angle_speed)
 
 
 func _on_lookdown_hold_timer_timeout() -> void:

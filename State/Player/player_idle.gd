@@ -5,7 +5,11 @@ class_name PlayerIdle
 func update(delta):
 	super(delta)
 	
-	if absf(player.move_input) >= 0.1:
+	if Input.is_action_just_pressed("throw") and player.can_throw_rope:
+		transition.emit(self, "Throwing")
+		return
+	
+	if absf(player.move_input) >= 0.4:
 		#if player.is_running and (player.input_direction3.angle_to(player.global_basis.z.normalized()) > 0.4*PI):
 			#transition.emit(self, "Sliding")
 			#return

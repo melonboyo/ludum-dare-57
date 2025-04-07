@@ -1,0 +1,91 @@
+[gd_scene load_steps=10 format=3 uid="uid://r6vkjxdbu8kt"]
+
+[ext_resource type="PackedScene" uid="uid://b0nxejpnhxe7t" path="res://Assets/bridge_boulders.glb" id="1_r8per"]
+[ext_resource type="Texture2D" uid="uid://ddvotavoskh4" path="res://Assets/hole_wood1.jpg" id="2_7fh5d"]
+[ext_resource type="Texture2D" uid="uid://c3o22mpiwueed" path="res://Assets/hole_wood1_normal.jpg" id="3_mfise"]
+
+[sub_resource type="Gradient" id="Gradient_r8per"]
+offsets = PackedFloat32Array(0, 0.114754, 0.254098, 0.393443, 0.532787, 0.721311, 0.860656, 0.918033, 1)
+colors = PackedColorArray(0.00536004, 0.0219596, 0.0867736, 1, 0.271518, 0.179319, 0.199144, 1, 0.922885, 0.756117, 0.371833, 1, 0.536479, 0.431741, 0.280601, 1, 0.964518, 0.642086, 0.213889, 1, 0.409866, 0.317687, 0.213878, 1, 0.903534, 0.535269, 0.170563, 1, 0.564913, 0.42604, 0.243496, 1, 0.822915, 0.645878, 0.376381, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_apvc5"]
+gradient = SubResource("Gradient_r8per")
+width = 16
+height = 128
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r8per"]
+shading_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.720467, 0.720468, 0.720467, 1)
+albedo_texture = SubResource("GradientTexture2D_apvc5")
+metallic_specular = 0.12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7fh5d"]
+resource_name = "tree"
+cull_mode = 2
+albedo_color = Color(0.317171, 0.288808, 0.238677, 1)
+albedo_texture = ExtResource("2_7fh5d")
+roughness = 0.909449
+normal_enabled = true
+normal_scale = 0.2
+normal_texture = ExtResource("3_mfise")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7fh5d"]
+size = Vector3(4.13379, 0.367188, 7.07446)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mfise"]
+size = Vector3(3.89523, 0.782806, 7.07446)
+
+[node name="BridgeBoulders" instance=ExtResource("1_r8per")]
+
+[node name="ThinDoubleBoulder" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_r8per")
+
+[node name="Bridge" parent="." index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_7fh5d")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Bridge" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bridge/StaticBody3D" index="0"]
+transform = Transform3D(0.96188, -0.273472, 0, 0.273472, 0.96188, 0, 0, 0, 1, 15.3255, 0.899259, 0)
+shape = SubResource("BoxShape3D_7fh5d")
+
+[node name="CollisionShape3D9" type="CollisionShape3D" parent="Bridge/StaticBody3D" index="1"]
+transform = Transform3D(0.99608, 0.0884596, 0, -0.0884596, 0.99608, 0, 0, 0, 1, 19.1593, 1.06888, 0)
+shape = SubResource("BoxShape3D_mfise")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Bridge/StaticBody3D" index="2"]
+transform = Transform3D(0.991939, -0.126718, 0, 0.126718, 0.991939, 0, 0, 0, 1, 12.6032, 0.211407, 0)
+shape = SubResource("BoxShape3D_7fh5d")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Bridge/StaticBody3D" index="3"]
+transform = Transform3D(0.994265, -0.106941, 0, 0.106941, 0.994265, 0, 0, 0, 1, 8.71873, -0.236056, 0)
+shape = SubResource("BoxShape3D_7fh5d")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Bridge/StaticBody3D" index="4"]
+transform = Transform3D(0.997326, -0.0730816, 0, 0.0730816, 0.997326, 0, 0, 0, 1, 6.52578, -0.445138, 0)
+shape = SubResource("BoxShape3D_7fh5d")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Bridge/StaticBody3D" index="5"]
+transform = Transform3D(0.999524, 0.030835, 0, -0.030835, 0.999524, 0, 0, 0, 1, -5.11114, -0.485631, 0)
+shape = SubResource("BoxShape3D_7fh5d")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="Bridge/StaticBody3D" index="6"]
+transform = Transform3D(0.995304, 0.0968012, 0, -0.0968012, 0.995304, 0, 0, 0, 1, -8.95383, -0.22819, 0)
+shape = SubResource("BoxShape3D_7fh5d")
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="Bridge/StaticBody3D" index="7"]
+transform = Transform3D(0.982163, 0.188033, 0, -0.188033, 0.982163, 0, 0, 0, 1, -12.7885, 0.317714, 0)
+shape = SubResource("BoxShape3D_7fh5d")
+
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="Bridge/StaticBody3D" index="8"]
+transform = Transform3D(0.979056, 0.20359, 0, -0.20359, 0.979056, 0, 0, 0, 1, -15.5645, 0.837577, 0)
+shape = SubResource("BoxShape3D_7fh5d")
+
+[node name="MediumBoulder" parent="." index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_r8per")
+
+[node name="BigBoulder" parent="." index="3"]
+surface_material_override/0 = SubResource("StandardMaterial3D_r8per")

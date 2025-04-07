@@ -10,6 +10,7 @@ enum PlayerState {
 	ONLEDGE,
 	THROWING,
 	CLIMBING,
+	STUNNED,
 	FROZEN,
 }
 
@@ -21,6 +22,7 @@ const PlayerStates = {
 	PlayerState.ONLEDGE : "OnLedge",
 	PlayerState.THROWING : "Throwing",
 	PlayerState.CLIMBING : "Climbing",
+	PlayerState.STUNNED : "Stunned",
 	PlayerState.FROZEN : "Frozen",
 }
 
@@ -32,6 +34,7 @@ const StringToPlayerStateLookup = {
 	 "OnLedge" : PlayerState.ONLEDGE,
 	 "Throwing" : PlayerState.THROWING,
 	 "Climbing" : PlayerState.CLIMBING,
+	 "Stunned" : PlayerState.STUNNED,
 	 "Frozen" : PlayerState.FROZEN,
 }
 

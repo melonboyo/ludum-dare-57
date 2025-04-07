@@ -4,6 +4,8 @@ class_name PlayerInAir
 
 @export var on_ledge_state: PlayerState
 @export var early_jump_buffer: Timer
+@export var land_player: AudioStreamPlayer
+@export var fall_player: AudioStreamPlayer
 
 @export_subgroup("Ledge Detection")
 @export var ledge_top_ray: RayCast3D
@@ -17,8 +19,17 @@ func enter():
 	pass
 
 
+func exit():
+	fall_player.volume_db = -80.0
+
+
 func update(delta):
 	super(delta)
+	
+	if player.in_climb_area:
+		if Input.is_action_just_pressed("up"):
+			transition.emit(self, "Climbing")
+			return
 	
 	if Input.is_action_just_pressed("jump"):
 		if not early_jump_buffer.is_stopped():
@@ -34,11 +45,21 @@ func update(delta):
 func physics_update(delta):
 	super(delta)
 	
+	if player.in_climb_area:
+		if Input.is_action_just_pressed("up"):
+			transition.emit(self, "Climbing")
+			return
+	
 	if player.is_on_floor():
-		if player.move_velocity.length() > 0.1:
+		print(player.prev_velocity.y)
+		if player.prev_velocity.y < -35.0:
+			transition.emit(self, "Stunned")
+		elif player.move_velocity.length() > 0.1:
 			transition.emit(self, "Running")
+			land_player.play()
 		else:
 			transition.emit(self, "Idle")
+			land_player.play()
 		return
 	
 	if allow_ledge_grab and is_at_ledge():
@@ -54,6 +75,8 @@ func physics_update(delta):
 	player.move_velocity = player.move_velocity.move_toward(desired_velocity, delta * player.air_acceleration)
 	player.vertical_velocity += Vector3.DOWN * player.gravity * delta
 	player.vertical_velocity.y = maxf(player.vertical_velocity.y, -player.max_fall_speed)
+	
+	fall_player.volume_db = remap(player.get_real_velocity().y, 0.0, -42.0, -80.0, -16.0)
 	
 	rotate_to_direction_instant(player.last_strong_move_input)
 

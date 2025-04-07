@@ -15,6 +15,14 @@ class_name Player
 @export_range(0.5, 100.0) var gravity := 50.0
 @export_range(0.5, 100.0) var max_fall_speed := 15.0
 @export_range(0.01, 100.0) var rotation_speed := PI*6.0
+var disable_velocities := false:
+	set(value):
+		disable_velocities = value
+		if value:
+			move_velocity = Vector3.ZERO
+			vertical_velocity = Vector3.ZERO
+			velocity = Vector3.ZERO
+var prev_velocity := Vector3.ZERO
 
 @export_subgroup("Ledge Detection")
 @export_range(0.001, 3.0) var ledge_ray_length := 0.8:
@@ -38,7 +46,8 @@ class_name Player
 @export var animation: AnimationPlayer
 
 @export_subgroup("Rope")
-@export var rope_scene: PackedScene
+
+@export var climb_speed := 4.0
 var in_climb_area := false
 var can_throw_rope := true
 var rope_links_in_area: Array[Node3D]
@@ -60,6 +69,7 @@ var input_direction := Vector2.ZERO
 var move_input := 0.0
 var vertical_input := 0.0
 var last_strong_move_input := 1.0
+
 
 func _ready():
 	if Engine.is_editor_hint():
@@ -101,6 +111,7 @@ func _process(delta: float):
 	if (
 		not current_state == Constants.PlayerState.ONLEDGE and
 		not current_state == Constants.PlayerState.THROWING and
+		not current_state == Constants.PlayerState.CLIMBING and
 		absf(move_input) > 0.05
 	):
 		last_strong_move_input = move_input
@@ -110,7 +121,12 @@ func _physics_process(delta: float):
 	if Engine.is_editor_hint():
 		return
 	
+	prev_velocity = velocity
+	
 	in_climb_area = rope_links_in_area and not rope_links_in_area.is_empty()
+	
+	if disable_velocities:
+		return
 	
 	# Add velocity from gravity and movement input together
 	velocity = move_velocity + vertical_velocity
@@ -118,12 +134,14 @@ func _physics_process(delta: float):
 	# Move and slide the player character
 	move_and_slide()
 	move_velocity = Vector3(velocity.x, 0, 0)
+	vertical_velocity = Vector3(0, velocity.y, 0)
 
 
 func jump(apply_horizontal: bool = false):
 	vertical_velocity += Vector3.UP * jump_velocity
 	if apply_horizontal:
 		move_velocity = Vector3.RIGHT * move_input * walk_speed
+	$Jump.play()
 
 
 func set_debug_color(color: Color):
@@ -145,10 +163,10 @@ func unfreeze():
 	$State.current_state.unfreeze()
 
 
-func play_animation(name: String, reset_speed: bool = true) -> void:
-	if animation.current_animation == name:
+func play_animation(anim_name: String, reset_speed: bool = true) -> void:
+	if animation.current_animation == anim_name and animation.is_playing():
 		return
-	animation.play(name)
+	animation.play(anim_name)
 	if reset_speed:
 		animation.speed_scale = 1
 
@@ -161,26 +179,26 @@ func flip_sprite(value: bool) -> void:
 	$Sprite.flip_h = value
 
 
-func throw_rope() -> void:
+func throw_rope(dir: Vector3, power: float) -> void:
 	if GameState.current_rope:
 		GameState.current_rope.delete()
 	
-	var new_rope: RopeHinge = rope_scene.instantiate()
-	var facing_direction = (Vector3.RIGHT * last_strong_move_input).normalized()
-	#new_rope.global_position = global_position + facing_direction * 1.5 + Vector3.UP * 1.5
-	#new_rope.global_rotation.y = 0.0 if facing_direction.x >= 0.0 else PI
-	new_rope.initial_impulse = (facing_direction + Vector3.UP) * 12.0 + get_real_velocity()
-	get_parent_node_3d().add_child(new_rope)
-	new_rope.global_position = global_position
-	GameState.current_rope = new_rope
+	Preload.rope_hinge_instance = Preload.rope_hinge_scene.instantiate()
+	Preload.rope_hinge_instance.initial_impulse = dir * power
+	get_parent_node_3d().add_child(Preload.rope_hinge_instance)
+	Preload.rope_hinge_instance.global_position = global_position if dir.y > 0.0 else global_position + Vector3.DOWN * 0.5
+	GameState.current_rope = Preload.rope_hinge_instance
 	#print(new_rope.initial_impulse)
 
 
 func _on_climb_area_body_entered(body: Node3D) -> void:
-	#print("enter")
+	if not body is RigidBody3D:
+		return
 	rope_links_in_area.append(body)
 
 
 func _on_climb_area_body_exited(body: Node3D) -> void:
-	#print("exit")
+	if not body is RigidBody3D:
+		return
+	body.constant_force = Vector3.ZERO
 	rope_links_in_area.erase(body)

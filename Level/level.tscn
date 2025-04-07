@@ -1,13 +1,130 @@
-[gd_scene load_steps=12 format=3 uid="uid://ck5nwrpgjddet"]
+[gd_scene load_steps=35 format=3 uid="uid://ck5nwrpgjddet"]
 
 [ext_resource type="PackedScene" uid="uid://cyhus5kujnsmk" path="res://Level/hole.tscn" id="1_o6mkr"]
+[ext_resource type="Script" uid="uid://bcj0l8qa3efkf" path="res://Level/level.gd" id="1_py82k"]
 [ext_resource type="Script" uid="uid://domomqra22ul5" path="res://Player/focus.gd" id="2_52x1o"]
 [ext_resource type="PackedScene" uid="uid://dxnl18c4ix1ou" path="res://Level/rock_big.tscn" id="2_d6qko"]
 [ext_resource type="Texture2D" uid="uid://cerjsxy3rnxrr" path="res://Assets/skybox.jpg" id="2_iincs"]
 [ext_resource type="PackedScene" uid="uid://cswqig5dlfnvd" path="res://Level/branch.tscn" id="3_22cqp"]
 [ext_resource type="PackedScene" uid="uid://bypjr8y06p4s8" path="res://Player/player.tscn" id="3_iincs"]
 [ext_resource type="Script" uid="uid://bvsogxgcesb8d" path="res://Player/camera.gd" id="4_nk1il"]
+[ext_resource type="PackedScene" uid="uid://c4f4hq0mmks7s" path="res://Level/rock.tscn" id="4_wqlfs"]
+[ext_resource type="PackedScene" uid="uid://r6vkjxdbu8kt" path="res://Level/bridge_boulders.tscn" id="6_i5g78"]
 [ext_resource type="Script" uid="uid://bqsi4d5mikjx" path="res://Level/player_light.gd" id="6_nk1il"]
+[ext_resource type="PackedScene" uid="uid://b0k4yujvwgbgj" path="res://Level/platform.tscn" id="7_q47le"]
+[ext_resource type="PackedScene" uid="uid://dgyhv5kekh4y6" path="res://Level/small_platform.tscn" id="8_dx36h"]
+[ext_resource type="PackedScene" uid="uid://b1y0f4l8w856n" path="res://Level/light_crystal.tscn" id="9_1p6h5"]
+[ext_resource type="PackedScene" uid="uid://djkys7k530x7o" path="res://Level/camera_work_area.tscn" id="11_1teg4"]
+[ext_resource type="AudioStream" uid="uid://dru0pali0m26j" path="res://Assets/Sounds/rain_ambience.ogg" id="16_uqeto"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q47le"]
+size = Vector3(6.29395, 1, 4.22876)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dx36h"]
+size = Vector3(1.31818, 129.337, 13.0635)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1teg4"]
+size = Vector3(1.31818, 128.914, 13.0635)
+
+[sub_resource type="Animation" id="Animation_dx36h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:surface_material_override/0:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%DarkTransition3/../../../Music:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-10.0]
+}
+
+[sub_resource type="Animation" id="Animation_1teg4"]
+resource_name = "fade_away"
+length = 5.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:surface_material_override/0:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.4, 5.5),
+"transitions": PackedFloat32Array(-2, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%DarkTransition3/../../../Music:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.266667, 5.5),
+"transitions": PackedFloat32Array(1, 1, 2),
+"update": 0,
+"values": [-80.0, -80.0, -10.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i5g78"]
+_data = {
+&"RESET": SubResource("Animation_dx36h"),
+&"fade_away": SubResource("Animation_1teg4")
+}
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1teg4"]
+size = Vector2(40, 26)
+
+[sub_resource type="Gradient" id="Gradient_i5g78"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.336066, 0.663934, 1)
+colors = PackedColorArray(0.0117647, 0.00784314, 0.0705882, 0, 0.0117647, 0.00784314, 0.0705882, 1, 0.0101247, 0.00683957, 0.0700048, 1, 0.0117647, 0.00784314, 0.0705882, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_q47le"]
+gradient = SubResource("Gradient_i5g78")
+width = 1
+height = 128
+fill_from = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dx36h"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("GradientTexture2D_q47le")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_i5g78"]
+custom_aabb = AABB(-50, -50, -50, 100, 100, 100)
+size = Vector2(40, 50)
+
+[sub_resource type="Gradient" id="Gradient_1teg4"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.286885, 1)
+colors = PackedColorArray(0.0117647, 0.00784314, 0.0705882, 1, 0.0117647, 0.00784314, 0.0705882, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_i5g78"]
+gradient = SubResource("Gradient_1teg4")
+width = 1
+height = 128
+fill_from = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q47le"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("GradientTexture2D_i5g78")
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_nk1il"]
 panorama = ExtResource("2_iincs")
@@ -19,56 +136,184 @@ radiance_size = 4
 [sub_resource type="Environment" id="Environment_22cqp"]
 background_mode = 2
 sky = SubResource("Sky_1bvp3")
+sky_rotation = Vector3(5.61996, 0, 0)
 ambient_light_source = 3
 ambient_light_energy = 2.2
 fog_light_color = Color(0.062116, 0.0624849, 0.141139, 1)
 fog_light_energy = 0.95
 fog_sky_affect = 0.305
 adjustment_enabled = true
-adjustment_brightness = 0.95
-adjustment_contrast = 1.05
-adjustment_saturation = 1.2
+adjustment_contrast = 1.09
+adjustment_saturation = 1.28
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i5g78"]
+size = Vector3(4.67554, 5.98657, 5.33105)
 
 [node name="Level" type="Node3D"]
+script = ExtResource("1_py82k")
 
-[node name="Geometry" type="Node3D" parent="."]
+[node name="CheckPoints" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.5124, 0.8, 0)
 
-[node name="Hole" parent="Geometry" instance=ExtResource("1_o6mkr")]
+[node name="1" type="Marker3D" parent="CheckPoints"]
 
-[node name="RockBig" parent="Geometry" instance=ExtResource("2_d6qko")]
-transform = Transform3D(0.987933, 0.119459, -0.0985786, -0.119897, 0.992785, 0.00149184, 0.0980456, 0.0103454, 0.995128, -14.413, 0.523702, 0)
+[node name="2" type="Marker3D" parent="CheckPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.9599, -126.89, 0)
 
-[node name="Branch" parent="Geometry" instance=ExtResource("3_22cqp")]
-transform = Transform3D(0.986642, -0.0438305, 0.156901, 0.0461318, 0.998874, -0.011054, -0.156239, 0.0181444, 0.987553, -8.87273, 2.82406, -0.573723)
+[node name="OverworldGeometry" type="Node3D" parent="."]
 
-[node name="Branch2" parent="Geometry" instance=ExtResource("3_22cqp")]
-transform = Transform3D(0.983972, 0, -0.178321, 0, 1, 0, 0.178321, 0, 0.983972, -6.27383, 4.43805, 1.13727)
+[node name="Hole" parent="OverworldGeometry" instance=ExtResource("1_o6mkr")]
 
-[node name="Branch3" parent="Geometry" instance=ExtResource("3_22cqp")]
-transform = Transform3D(0.993048, 0, 0.117711, 0, 1, 0, -0.117711, 0, 0.993048, -16.5434, 6.21094, -0.31346)
+[node name="RockBig" parent="OverworldGeometry" instance=ExtResource("2_d6qko")]
+transform = Transform3D(0.987933, 0.119459, -0.0985786, -0.119897, 0.992785, 0.00149184, 0.0980456, 0.0103454, 0.995128, -15.1084, 0.448337, -0.0687759)
+
+[node name="RockBig4" parent="OverworldGeometry" instance=ExtResource("2_d6qko")]
+transform = Transform3D(0.998697, 0.045916, 0.0222637, -0.0439383, 0.995631, -0.0823928, -0.0259495, 0.0813072, 0.996351, 17.996, 0.52131, 2.44025)
+
+[node name="RockBig2" parent="OverworldGeometry" instance=ExtResource("2_d6qko")]
+transform = Transform3D(0.54787, -0.26949, 0.206594, 0.172584, 1.02457, -0.0307759, -0.189984, 0.153584, 0.567813, -11.3506, -0.0668528, 7.22976)
+
+[node name="RockBig3" parent="OverworldGeometry" instance=ExtResource("2_d6qko")]
+transform = Transform3D(0.30309, -0.0925878, 0.114291, 0.0954764, 0.352007, -0.0170257, -0.105102, 0.0527663, 0.314124, -11.2353, 1.29763, 7.18045)
+
+[node name="Branch" parent="OverworldGeometry" instance=ExtResource("3_22cqp")]
+transform = Transform3D(0.986642, -0.0438305, 0.156901, 0.0461318, 0.998874, -0.011054, -0.156239, 0.0181444, 0.987553, -10.113, 2.82406, -0.573723)
+
+[node name="Branch2" parent="OverworldGeometry" instance=ExtResource("3_22cqp")]
+transform = Transform3D(0.983972, 0, -0.178321, 0, 1, 0, 0.178321, 0, 0.983972, -7.15051, 4.43805, 1.13727)
+
+[node name="Branch3" parent="OverworldGeometry" instance=ExtResource("3_22cqp")]
+transform = Transform3D(0.99439, 0, 0.105778, 0, 1, 0, -0.105778, 0, 0.99439, -5.22803, 6.1705, 0.109399)
+
+[node name="Branch4" parent="OverworldGeometry" instance=ExtResource("3_22cqp")]
+transform = Transform3D(0.702953, 0.261052, -0.225308, -0.0843519, 0.626212, 0.462383, 0.33436, -0.390851, 0.590333, -8.06507, 4.67337, -3.42259)
+
+[node name="Rock" parent="OverworldGeometry" instance=ExtResource("4_wqlfs")]
+transform = Transform3D(0.950414, -0.0759854, 0.301561, 0.0713033, 0.997102, 0.0265202, -0.302702, -0.00370281, 0.953078, -4.24324, 11.8687, -0.00115985)
+
+[node name="Rock2" parent="OverworldGeometry" instance=ExtResource("4_wqlfs")]
+transform = Transform3D(0.99774, 0, -0.0671969, 0, 1, 0, 0.0671969, 0, 0.99774, 6.60475, 12.2302, 0.465368)
+
+[node name="DepthsGeometry" type="Node3D" parent="."]
+
+[node name="AwakenArea" type="Area3D" parent="DepthsGeometry"]
+unique_name_in_owner = true
+transform = Transform3D(2.09438, -0.0219101, -0.207483, 0.0223282, 2.10462, 0.00313994, 0.207438, -0.00532564, 2.09449, -0.516599, -134.225, -1.5727)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="Shape" type="CollisionShape3D" parent="DepthsGeometry/AwakenArea"]
+transform = Transform3D(1, 2.73576e-09, -4.47035e-08, -2.53203e-09, 1, -2.32831e-10, 0, -1.18744e-08, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_q47le")
+
+[node name="InvisTrunkWalls" type="StaticBody3D" parent="DepthsGeometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3455, -12.8468, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DepthsGeometry/InvisTrunkWalls"]
+transform = Transform3D(0.999696, 0.0246416, 0, -0.0246416, 0.999696, 0, 0, 0, 1, -4.152, -50.443, 0)
+shape = SubResource("BoxShape3D_dx36h")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="DepthsGeometry/InvisTrunkWalls"]
+transform = Transform3D(0.999701, -0.0244322, 0, 0.0244322, 0.999701, 0, 0, 0, 1, -16.656, -50.231, 0)
+shape = SubResource("BoxShape3D_1teg4")
+
+[node name="DarkTransitions" type="Node3D" parent="DepthsGeometry"]
+
+[node name="TransitionAnimationPlayer" type="AnimationPlayer" parent="DepthsGeometry/DarkTransitions"]
+unique_name_in_owner = true
+root_node = NodePath("../DarkTransition3")
+libraries = {
+&"": SubResource("AnimationLibrary_i5g78")
+}
+
+[node name="DarkTransition" type="MeshInstance3D" parent="DepthsGeometry/DarkTransitions"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -21.3217, 6.62507)
+mesh = SubResource("PlaneMesh_1teg4")
+skeleton = NodePath("../../root/@EditorNode@21269/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11479/@VSplitContainer@11131/@HSplitContainer@11133/@HSplitContainer@11135/@Control@11136/@SubViewportContainer@11137/@SubViewport@11138/Level")
+surface_material_override/0 = SubResource("StandardMaterial3D_dx36h")
+
+[node name="DarkTransition2" type="MeshInstance3D" parent="DepthsGeometry/DarkTransitions"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -47.4366, 6.62507)
+mesh = SubResource("PlaneMesh_1teg4")
+skeleton = NodePath("../../root/@EditorNode@21269/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11479/@VSplitContainer@11131/@HSplitContainer@11133/@HSplitContainer@11135/@Control@11136/@SubViewportContainer@11137/@SubViewport@11138/Level")
+surface_material_override/0 = SubResource("StandardMaterial3D_dx36h")
+
+[node name="DarkTransition4" type="MeshInstance3D" parent="DepthsGeometry/DarkTransitions"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -73.552, 6.625)
+mesh = SubResource("PlaneMesh_1teg4")
+skeleton = NodePath("../../root/@EditorNode@21269/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11479/@VSplitContainer@11131/@HSplitContainer@11133/@HSplitContainer@11135/@Control@11136/@SubViewportContainer@11137/@SubViewport@11138/Level")
+surface_material_override/0 = SubResource("StandardMaterial3D_dx36h")
+
+[node name="DarkTransition3" type="MeshInstance3D" parent="DepthsGeometry/DarkTransitions"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -112.569, 7.66481)
+mesh = SubResource("PlaneMesh_i5g78")
+skeleton = NodePath("../../root/@EditorNode@21269/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11479/@VSplitContainer@11131/@HSplitContainer@11133/@HSplitContainer@11135/@Control@11136/@SubViewportContainer@11137/@SubViewport@11138/Level")
+surface_material_override/0 = SubResource("StandardMaterial3D_q47le")
+
+[node name="BridgeBoulders" parent="DepthsGeometry" instance=ExtResource("6_i5g78")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.683659, -156.169, -1.57326)
+
+[node name="Platform" parent="DepthsGeometry" instance=ExtResource("7_q47le")]
+transform = Transform3D(-0.986666, 0, 0.162758, 0, 1, 0, -0.162758, 0, -0.986666, 39.6327, -165.464, -3.13363)
+
+[node name="Platform2" parent="DepthsGeometry" instance=ExtResource("7_q47le")]
+transform = Transform3D(-0.901682, 0, -0.4324, 0, 1, 0, 0.4324, 0, -0.901682, 26.4109, -169.996, -3.13363)
+
+[node name="small_platform" parent="DepthsGeometry" instance=ExtResource("8_dx36h")]
+transform = Transform3D(0.983019, 0, -0.183505, 0, 1, 0, 0.183505, 0, 0.983019, 11.5564, -145.297, -1.86597)
+
+[node name="Crystals" type="Node3D" parent="DepthsGeometry"]
+
+[node name="LightCrystal" parent="DepthsGeometry/Crystals" instance=ExtResource("9_1p6h5")]
+transform = Transform3D(0.979166, -0.198248, 0.0439469, 0.203061, 0.95596, -0.211914, 0, 0.216423, 0.9763, 13.965, -143.546, -8.00255)
+
+[node name="LightCrystal3" parent="DepthsGeometry/Crystals" instance=ExtResource("9_1p6h5")]
+transform = Transform3D(0.972594, 0.227001, -0.0503208, -0.232512, 0.949543, -0.210491, 6.21837e-10, 0.216423, 0.9763, 1.96565, -153.213, -6.78991)
+
+[node name="LightCrystal4" parent="DepthsGeometry/Crystals" instance=ExtResource("9_1p6h5")]
+transform = Transform3D(1.61167, -0.314266, 0.0454774, 0.23282, 2.17548, -0.314813, 7.41256e-09, 0.487258, 1.43489, 3.72477, -151.848, -7.65517)
+
+[node name="LightCrystal5" parent="DepthsGeometry/Crystals" instance=ExtResource("9_1p6h5")]
+transform = Transform3D(1.16958, 0.272976, -0.0605124, -0.276589, 1.09143, -0.422326, -0.0409466, 0.424669, 1.12431, 39.64, -163.037, -6.78991)
+
+[node name="LightCrystal7" parent="DepthsGeometry/Crystals" instance=ExtResource("9_1p6h5")]
+transform = Transform3D(0.751877, 0.0750362, -0.000959441, -0.0713036, 0.711348, -0.244644, -0.0233912, 0.243525, 0.714912, 38.6931, -163.037, -8.22022)
+
+[node name="LightCrystal6" parent="DepthsGeometry/Crystals" instance=ExtResource("9_1p6h5")]
+transform = Transform3D(1.90412, -0.371291, 0.0537295, 0.275066, 2.57023, -0.371937, 8.7576e-09, 0.575673, 1.69525, 41.3992, -161.672, -7.65517)
+
+[node name="LightCrystal2" parent="DepthsGeometry/Crystals" instance=ExtResource("9_1p6h5")]
+transform = Transform3D(0.608301, -0.18394, 0.0470682, 0.189441, 0.577425, -0.191759, 0.0127013, 0.197042, 0.605881, 13.2218, -144.253, -8.00255)
+
+[node name="LightCrystal8" parent="DepthsGeometry/Crystals" instance=ExtResource("9_1p6h5")]
+transform = Transform3D(6.01178, 0.172488, 0.0870828, -0.155481, 5.92782, -1.00775, -0.114721, 1.00498, 5.92923, 68.216, -149.811, -1.46559)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_22cqp")
 
 [node name="RealDirectionalLight" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.695975, -0.527912, 0.486752, 0, 0.677865, 0.735187, -0.718066, -0.511671, 0.471777, 0, 27.4262, 0)
-light_color = Color(0.384603, 0.669058, 0.936206, 1)
-light_energy = 0.02
+light_color = Color(0.280824, 0.431369, 0.801715, 1)
+light_energy = 0.03
 
 [node name="EditorLight" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.505672, -0.840867, 0.19297, 0, 0.223675, 0.974664, -0.862726, -0.492861, 0.113106, 0, 30.1802, 0)
 editor_only = true
 
-[node name="CameraPivot" type="Node3D" parent="."]
+[node name="CameraPivot" type="Node3D" parent="." node_paths=PackedStringArray("player", "focus")]
 script = ExtResource("4_nk1il")
-focus_path = NodePath("../Focus")
-distance = 13.5
-max_angle = 19.035
-min_angle = -25.29
+player = NodePath("../Player")
+focus = NodePath("../Focus")
+distance = 13.6
+max_angle = 20.0
+min_angle = -24.0
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13.5)
-fov = 85.0
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13.6)
+fov = 92.0
 size = 20.0
 
 [node name="Focus" type="Node3D" parent="." node_paths=PackedStringArray("player", "camera", "lookdown_timer", "lookup_timer")]
@@ -80,33 +325,58 @@ lookdown_timer = NodePath("LookdownHoldTimer")
 lookup_timer = NodePath("LookupHoldTimer")
 lookdown_distance = -5.8
 lookdown_angle = 8.8
+lookup_distance = 5.5
 
 [node name="LookdownHoldTimer" type="Timer" parent="Focus"]
-wait_time = 0.7
 one_shot = true
 ignore_time_scale = true
 
 [node name="LookupHoldTimer" type="Timer" parent="Focus"]
-wait_time = 0.7
 one_shot = true
 ignore_time_scale = true
 
 [node name="FloorRayCast" type="RayCast3D" parent="Focus"]
 
 [node name="Player" parent="." instance=ExtResource("3_iincs")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -21.5124, 0.8, 0)
-wall_min_slide_angle = 0.436332
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.5124, 0.8, 0)
+floor_max_angle = 0.785398
+floor_snap_length = 0.22
+disable_input = true
 
 [node name="PlayerLight" type="OmniLight3D" parent="." node_paths=PackedStringArray("player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84, 2.585)
-light_color = Color(0.931451, 0.902157, 0.882603, 1)
-light_energy = 1.265
-omni_range = 10.2634
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 2.585)
+light_color = Color(0.87288, 0.801095, 0.771813, 1)
+light_energy = 0.85
+omni_range = 14.7145
 omni_attenuation = 0.273
 script = ExtResource("6_nk1il")
 player = NodePath("../Player")
-y_offset = 0.84
+y_offset = 0.9
 z_offset = 2.585
 
+[node name="CameraWork" type="Node3D" parent="."]
+
+[node name="CameraWorkAreaTreeTrunk" parent="CameraWork" instance=ExtResource("11_1teg4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.89559, 14.8504, -0.36448)
+
+[node name="Shape" type="CollisionShape3D" parent="CameraWork/CameraWorkAreaTreeTrunk"]
+shape = SubResource("BoxShape3D_i5g78")
+debug_color = Color(0.698039, 0.494118, 0, 0.933333)
+
+[node name="TreeTrunkFocus" type="Marker3D" parent="CameraWork/CameraWorkAreaTreeTrunk"]
+unique_name_in_owner = true
+transform = Transform3D(0.948804, 0.15325, -0.276197, -1.39698e-08, 0.874417, 0.485176, 0.315864, -0.460337, 0.82965, 2.01793, -3.43282, 2.5485)
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_uqeto")
+volume_db = -10.0
+autoplay = true
+bus = &"Music"
+parameters/looping = true
+
+[connection signal="body_entered" from="DepthsGeometry/AwakenArea" to="." method="_on_awaken_area_body_entered"]
+[connection signal="animation_finished" from="DepthsGeometry/DarkTransitions/TransitionAnimationPlayer" to="." method="_on_dark_fade_away_animation_finished"]
 [connection signal="timeout" from="Focus/LookdownHoldTimer" to="Focus" method="_on_lookdown_hold_timer_timeout"]
 [connection signal="timeout" from="Focus/LookupHoldTimer" to="Focus" method="_on_lookup_hold_timer_timeout"]
+[connection signal="body_entered" from="CameraWork/CameraWorkAreaTreeTrunk" to="CameraPivot" method="_on_camera_work_area_tree_trunk_body_entered"]
+[connection signal="body_exited" from="CameraWork/CameraWorkAreaTreeTrunk" to="CameraPivot" method="_on_camera_work_area_tree_trunk_body_exited"]

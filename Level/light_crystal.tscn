@@ -1,0 +1,76 @@
+[gd_scene load_steps=5 format=3 uid="uid://b1y0f4l8w856n"]
+
+[ext_resource type="PackedScene" uid="uid://oyfuy7762wwt" path="res://Level/crystal.tscn" id="1_8sx3p"]
+
+[sub_resource type="Animation" id="Animation_ow4no"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Crystal:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Crystal:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8sx3p"]
+resource_name = "hover"
+length = 12.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Crystal:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 6, 12),
+"transitions": PackedFloat32Array(-2, -2, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.12, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Crystal:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3, 6, 9, 12),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, 1),
+"update": 0,
+"values": [Vector3(0, -0.15708, 0), Vector3(0, 0.10472, 0), Vector3(0, -0.15708, 0), Vector3(0, 0.10472, 0), Vector3(0, -0.15708, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ow4no"]
+_data = {
+&"RESET": SubResource("Animation_ow4no"),
+&"hover": SubResource("Animation_8sx3p")
+}
+
+[node name="LightCrystal" type="Node3D"]
+
+[node name="Crystal" parent="." instance=ExtResource("1_8sx3p")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ow4no")
+}
+autoplay = "hover"

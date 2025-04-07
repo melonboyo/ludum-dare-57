@@ -2,6 +2,8 @@ extends PlayerState
 class_name PlayerOnLedge
 
 
+@export var land_player: AudioStreamPlayer
+
 @export_subgroup("Ledge Detection")
 @export var ledge_top_ray: RayCast3D
 @export var ledge_bottom_ray: RayCast3D
@@ -14,11 +16,12 @@ var ledge_normal := Vector2.UP
 var ledge_position := Vector3.ZERO
 var ledge_position_top := Vector3.ZERO
 
-const PLAYER_RADIUS := 0.2
+const PLAYER_RADIUS := 0.55
 
 
 func enter():
 	player.play_animation("onledge")
+	land_player.play()
 	
 	ledge_check_ray.force_raycast_update()
 	ledge_top_ray.force_raycast_update()
@@ -27,10 +30,10 @@ func enter():
 	var ledge_normal3 := ledge_bottom_ray.get_collision_normal()
 	ledge_normal = Vector2(ledge_normal3.x, 0.0).normalized()
 	ledge_position_top = ledge_check_ray.get_collision_point()
-	ledge_position = Vector3(ledge_position.x, ledge_position_top.y + 0.01, 0.0)
+	ledge_position = Vector3(ledge_position.x, ledge_position_top.y - 0.07, 0.0)
 	var ledge_direction3 = player.global_position.direction_to(ledge_position)
-	ledge_direction = Vector2(ledge_direction3.x, ledge_direction3.z).normalized()
-	ledge_position = ledge_position - Vector3(ledge_direction.x, 0.0, 0.0) * PLAYER_RADIUS
+	ledge_direction = Vector2(ledge_direction3.x, ledge_direction3.y).normalized()
+	ledge_position = ledge_position - Vector3(ledge_direction.x, 0.0, 0.0).normalized() * PLAYER_RADIUS
 	player.global_position = ledge_position
 	rotate_to_direction_instant(-ledge_normal.x)
 	player.last_strong_move_input = -ledge_normal.x
@@ -42,6 +45,11 @@ func enter():
 
 func update(delta):
 	super(delta)
+	
+	if player.in_climb_area:
+		if Input.is_action_just_pressed("up"):
+			transition.emit(self, "Climbing")
+			return
 	
 	if Input.is_action_just_pressed("down"):
 		leave_ledge()
@@ -63,6 +71,11 @@ func leave_ledge():
 
 
 func physics_update(delta):
+	if player.in_climb_area:
+		if Input.is_action_just_pressed("up"):
+			transition.emit(self, "Climbing")
+			return
+	
 	if Input.is_action_just_pressed("jump"):
 		ledge_timer.start()
 		player.jump(true)

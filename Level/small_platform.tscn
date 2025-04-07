@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dgyhv5kekh4y6"]
+
+[ext_resource type="PackedScene" uid="uid://rpa7c6l8fict" path="res://Assets/small_platform.glb" id="1_xishp"]
+
+[sub_resource type="Gradient" id="Gradient_3iyb4"]
+offsets = PackedFloat32Array(0, 0.114754, 0.254098, 0.532787, 0.721311, 0.868852, 1)
+colors = PackedColorArray(0.00536004, 0.0219596, 0.0867736, 1, 0.271518, 0.179319, 0.199144, 1, 0.922885, 0.756117, 0.371833, 1, 0.964518, 0.642086, 0.213889, 1, 0.409866, 0.317687, 0.213878, 1, 0.564913, 0.42604, 0.243496, 1, 0.822915, 0.645878, 0.376381, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_eqf62"]
+gradient = SubResource("Gradient_3iyb4")
+width = 16
+height = 128
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xishp"]
+shading_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.720467, 0.720468, 0.720467, 1)
+albedo_texture = SubResource("GradientTexture2D_eqf62")
+metallic_specular = 0.12
+
+[node name="small_platform" instance=ExtResource("1_xishp")]
+
+[node name="SmallPlatform" parent="." index="0"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 3.23992)
+surface_material_override/0 = SubResource("StandardMaterial3D_xishp")

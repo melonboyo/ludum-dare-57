@@ -1,0 +1,257 @@
+[gd_scene load_steps=25 format=4 uid="uid://2vch6yqvu53p"]
+
+[ext_resource type="Texture2D" uid="uid://dqn7bnsgudcgy" path="res://Assets/rope.jpg" id="1_pg7vo"]
+[ext_resource type="Script" uid="uid://ci7e244dnhqx7" path="res://loading.gd" id="1_xvgud"]
+[ext_resource type="Script" uid="uid://ce05v1xjpadmy" path="res://Player/link_mesh.gd" id="2_1l04a"]
+[ext_resource type="PackedScene" uid="uid://cyhus5kujnsmk" path="res://Level/hole.tscn" id="3_1l04a"]
+[ext_resource type="PackedScene" uid="uid://cswqig5dlfnvd" path="res://Level/branch.tscn" id="4_ecfth"]
+[ext_resource type="PackedScene" uid="uid://c4f4hq0mmks7s" path="res://Level/rock.tscn" id="5_wc73m"]
+[ext_resource type="PackedScene" uid="uid://c64x5fukj4i1x" path="res://Player/rope_hinge.tscn" id="7_ypwvy"]
+[ext_resource type="PackedScene" uid="uid://b4u1ehufnq05w" path="res://Player/rope_end.tscn" id="8_m23s6"]
+[ext_resource type="PackedScene" uid="uid://r6vkjxdbu8kt" path="res://Level/bridge_boulders.tscn" id="9_25ta2"]
+[ext_resource type="PackedScene" uid="uid://b0k4yujvwgbgj" path="res://Level/platform.tscn" id="10_vxij0"]
+[ext_resource type="PackedScene" uid="uid://oyfuy7762wwt" path="res://Level/crystal.tscn" id="11_odase"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ecfth"]
+top_radius = 0.12
+bottom_radius = 0.12
+height = 0.63
+radial_segments = 8
+rings = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wc73m"]
+diffuse_mode = 2
+albedo_texture = ExtResource("1_pg7vo")
+metallic_specular = 0.08
+uv1_scale = Vector3(3, 1.695, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_pg7vo"]
+radius = 0.3
+height = 0.6
+radial_segments = 8
+rings = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1l04a"]
+blend_mode = 1
+albedo_color = Color(0.972974, 0.220898, 0.369753, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_xvgud"]
+radius = 0.15
+height = 0.3
+radial_segments = 8
+rings = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ypwvy"]
+blend_mode = 1
+albedo_color = Color(0.890406, 0.842349, 0.807289, 1)
+metallic_specular = 0.0
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_ypwvy"]
+_data = PackedByteArray("AAADAAUAAAABAAAAAAEAAAABAABmAwAAUklGRl4DAABXRUJQVlA4TFIDAAAv/8A/EA8w0LM/NvMf8KDcbHsjyfkIAkP5/ypbfwoTQKOZyoZRh0Y3B/K2M1BnoqW8lzLQcO4ylOdAXP5AkSzOzO5REiL6z8Zt20D0dpPa3ivw35091XKqczY0tbzuUNehRsJQ0HeGO6qnRx2sB9zRjHQdsff6imCaTupFFbU/Gt1LFLQ7vb4IBhFIJptwaQAEqjIlE+R1CipxVahQFI2kE1eFM0UxJukslVDhJNo9MNkiKggXim2HqMV9Zk755Q/FlMPC8WQpXS8dtC8LR9P3PKcPPxba7tF0XPIcawcnRLxD0y+2dpyIdwtvpl8azI33zfRX9TIxz4tvlo6F/5iYFu5kprTwLxum3eKSakfyL5updviT4ZSvmw7e1E7LuVxf+9fN1u4R4/HEc/7nUDvEIl4dhXerHfKy0Fx+rzaldhihTf794GoHL5SYJFdLB20yI4jOZtN0mGebDhSdrBd3pGcTwwuiytbVDkSGt4gqMpIjA0xwBwCZkZofawKA7v8xWOlIhAhjVgC4B6yJeqVjZXfRcX4D4HUzwHeO1iU4Wndv2BG1H3XAm3XBJDMSB/xJ9Ogcow4nogbnEMFgckDnmdZhpHCvCfDCI0kNoGgMt+a2ewb/Q72nhs5aTnWmllcd6jr0SNAj4cZcT3W477gxasWON732wwekW0A0gP/c6F4ib5wcDRBMlSiYcPly7dBV5kheXl8kRgIyJ4pSRUJUKDZxEKOBbBs2cxKtm84I3LeF4+8av6vFDGz3xaaikHS2FW9kikE70dt9Y7ffzkm5B2a/rWhzaVP4cMFzNc0/HOZ48aHQtvOLnePVhRjetX5cfPixEHf+OswxXJyoFw8p+o+ZiBfP8CZVLx+Jt1U5REniPya2C8d7m1IS/7LhYpEWNqVYOyYhxF+52F389VA7CiOpKddbaJSFUOZdumpkRvzYJp7zh21HZSLtiq+eiguxwFwwNx2EIAg6H5oOoHYwkCzOuw5nUTtWOGnfGx1gERmzU7rpKAAiAU7pFcFgBrDeUbcCwHlnZY9Gh7t1hx/wN+gIZl1QcdShRQ8chx0iauUMN+1A55mgAD/oeBFebI+DBjDo2AKiV8Qqo2cbwAhugYIaUi+uO8No7HGDjTr/NTUA")
+size_override = Vector2(256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y13ep"]
+atlas = SubResource("PortableCompressedTexture2D_ypwvy")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_odase"]
+atlas = SubResource("PortableCompressedTexture2D_ypwvy")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aecca"]
+atlas = SubResource("PortableCompressedTexture2D_ypwvy")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6c35k"]
+atlas = SubResource("PortableCompressedTexture2D_ypwvy")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="Animation" id="Animation_nbgtl"]
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [SubResource("AtlasTexture_odase"), SubResource("AtlasTexture_aecca"), SubResource("AtlasTexture_y13ep"), SubResource("AtlasTexture_6c35k")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tab87"]
+_data = {
+&"default": SubResource("Animation_nbgtl")
+}
+
+[node name="Loading" type="Node3D"]
+script = ExtResource("1_xvgud")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 0.945876, 0.324528, 0, -0.324528, 0.945876, 0, 1.09193, 1.85038)
+current = true
+fov = 120.0
+
+[node name="ToLoad" type="Node3D" parent="."]
+
+[node name="RopeLink" type="MeshInstance3D" parent="ToLoad"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.272431, 0.035, 0)
+mesh = SubResource("CylinderMesh_ecfth")
+skeleton = NodePath("../../root/@EditorNode@21269/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11479/@VSplitContainer@11131/@HSplitContainer@11133/@HSplitContainer@11135/@Control@11136/@SubViewportContainer@11137/@SubViewport@11138/Loading")
+surface_material_override/0 = SubResource("StandardMaterial3D_wc73m")
+script = ExtResource("2_1l04a")
+
+[node name="RopeHinge" type="MeshInstance3D" parent="ToLoad"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.250208, 0, 0)
+mesh = SubResource("SphereMesh_pg7vo")
+skeleton = NodePath("../../root/@EditorNode@21269/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11479/@VSplitContainer@11131/@HSplitContainer@11133/@HSplitContainer@11135/@Control@11136/@SubViewportContainer@11137/@SubViewport@11138/Loading")
+surface_material_override/0 = SubResource("StandardMaterial3D_1l04a")
+
+[node name="Hole" parent="ToLoad" instance=ExtResource("3_1l04a")]
+transform = Transform3D(0.0938618, 0, 0, 0, 0.0938618, 0, 0, 0, 0.0938618, 0, -0.39327, -0.931362)
+
+[node name="Branch" parent="ToLoad" instance=ExtResource("4_ecfth")]
+transform = Transform3D(0.242384, 0, 0, 0, 0.242384, 0, 0, 0, 0.242384, 0.474903, 0.365181, 0)
+
+[node name="Rock" parent="ToLoad" instance=ExtResource("5_wc73m")]
+transform = Transform3D(0.285444, 0, 0, 0, 0.285444, 0, 0, 0, 0.285444, 0, -0.385521, 0.317713)
+
+[node name="Mesh" type="MeshInstance3D" parent="ToLoad"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.451407, 0)
+mesh = SubResource("SphereMesh_xvgud")
+skeleton = NodePath("../../root/@EditorNode@21269/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11479/@VSplitContainer@11131/@HSplitContainer@11133/@HSplitContainer@11135/@Control@11136/@SubViewportContainer@11137/@SubViewport@11138/Loading")
+surface_material_override/0 = SubResource("StandardMaterial3D_ypwvy")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.00171622, 0.0812485, 0.157735, 1)
+metadata/_edit_lock_ = true
+
+[node name="CenterContainer" type="CenterContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Loading" type="TextureRect" parent="Control/CenterContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+texture = SubResource("AtlasTexture_y13ep")
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {}
+}
+metadata/_aseprite_wizard_config_ = {
+"embed_tex": true,
+"i_mode": 0,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "Control/CenterContainer/TextureRect/AnimationPlayer",
+"slice": "",
+"source": "res://Assets/loading.aseprite"
+}
+metadata/_aseprite_wizard_source_file_hash_ = "9dfb8f4f7dc5b7971d686c343916d4e6"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/CenterContainer/Loading"]
+libraries = {
+&"": SubResource("AnimationLibrary_tab87")
+}
+autoplay = "default"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+
+[node name="LoadTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="RopeHinge" parent="." instance=ExtResource("7_ypwvy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.262124, 0, 0.378058)
+
+[node name="Debug" parent="RopeHinge/Hinges/Hinge1" index="0"]
+visible = true
+
+[node name="Mesh" parent="RopeHinge/Links/Link1" index="1"]
+visible = true
+
+[node name="Mesh" parent="RopeHinge/Links/Link2" index="1"]
+visible = true
+
+[node name="Mesh" parent="RopeHinge/Links/Link3" index="1"]
+visible = true
+
+[node name="Mesh" parent="RopeHinge/Links/Link4" index="1"]
+visible = true
+
+[node name="Mesh" parent="RopeHinge/Links/Link5" index="1"]
+visible = true
+
+[node name="Mesh" parent="RopeHinge/Links/Link6" index="1"]
+visible = true
+
+[node name="Link7" parent="RopeHinge/Links" index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.463663, 0, 0)
+
+[node name="Mesh" parent="RopeHinge/Links/Link7" index="1"]
+visible = true
+
+[node name="Mesh" parent="RopeHinge/Links/Link8" index="1"]
+visible = true
+
+[node name="Mesh" parent="RopeHinge/Links/Link9" index="1"]
+visible = true
+
+[node name="Mesh" parent="RopeHinge/Links/Link10" index="1"]
+visible = true
+
+[node name="Mesh" parent="RopeHinge/Links/Link11" index="1"]
+visible = true
+
+[node name="Mesh" parent="RopeHinge/Links/Link12" index="1"]
+visible = true
+
+[node name="Mesh" parent="RopeHinge/Links/Link13" index="1"]
+visible = true
+
+[node name="RopeEnd" parent="." instance=ExtResource("8_m23s6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.211679)
+
+[node name="BridgeBoulders" parent="." instance=ExtResource("9_25ta2")]
+transform = Transform3D(0.0215622, 0, 0.00822516, 0, 0.0230777, 0, -0.00822516, 0, 0.0215622, 0.659744, 0, 0.240979)
+
+[node name="Platform" parent="." instance=ExtResource("10_vxij0")]
+transform = Transform3D(0.0396874, 0, 0, 0, 0.0396874, 0, 0, 0, 0.0396874, 0, 0, 0)
+
+[node name="Crystal" parent="." instance=ExtResource("11_odase")]
+transform = Transform3D(0.437009, 0, 0, 0, 0.437009, 0, 0, 0, 0.437009, -0.989117, 0, 0)
+
+[connection signal="timeout" from="LoadTimer" to="." method="_on_timer_timeout"]
+
+[editable path="RopeHinge"]

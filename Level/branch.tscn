@@ -14,7 +14,7 @@ normal_scale = 0.2
 normal_texture = ExtResource("3_7i0pq")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uur0d"]
-size = Vector3(5.3175, 0.820313, 2.24805)
+size = Vector3(5.28583, 0.433716, 2.24805)
 
 [node name="Branch" instance=ExtResource("1_uur0d")]
 
@@ -25,5 +25,5 @@ surface_material_override/0 = SubResource("StandardMaterial3D_vcasr")
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6288, -0.118496, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.64464, 0.0295143, 0)
 shape = SubResource("BoxShape3D_uur0d")

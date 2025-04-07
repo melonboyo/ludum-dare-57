@@ -18,10 +18,11 @@ func unfreeze():
 
 
 func rotate_to_direction(dir: float, delta: float):
+	return
 	var rotation = 0 if dir < 0 else PI
 	player.rotation.y = lerp_angle(player.rotation.y, rotation, player.rotation_speed * delta)
 
 
 func rotate_to_direction_instant(dir: float):
 	var rotation = 0.5*PI if dir > 0 else 1.5*PI
-	player.rotation.y = rotation
+	player.get_node("LedgeRayCasts").rotation.y = rotation

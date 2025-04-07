@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=4 uid="uid://oyfuy7762wwt"]
+
+[ext_resource type="PackedScene" uid="uid://4p4b1rwth3bo" path="res://Assets/crystal.glb" id="1_rbc65"]
+[ext_resource type="Script" uid="uid://2jw1tn0pdefr" path="res://Level/crystal.gd" id="2_t6ak0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t6ak0"]
+blend_mode = 1
+albedo_color = Color(0.640282, 0.547891, 0.934899, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1d6lx"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_6scyy"]
+_surfaces = [{
+"aabb": AABB(-1.41421, -1.5, -1.41421, 2.82843, 3, 2.82843),
+"format": 34896613377,
+"index_count": 24,
+"index_data": PackedByteArray("AAABAAIAAQADAAIABAAAAAIAAwAEAAIAAQAAAAUABQADAAEABAAFAAAABQAEAAMA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 6,
+"vertex_data": PackedByteArray("/3//f///AAD/f///AIAAAP///3//fwAA/3//fwAAAAD/fwAA/38AAAAA/3//fwAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_nikax"]
+resource_name = "crystal_Plane"
+_surfaces = [{
+"aabb": AABB(-1.41421, -1.5, -1.41421, 2.82843, 3, 2.82843),
+"attribute_data": PackedByteArray("AAD///5/AID/////AAAAAP//AAD+fwCA//8AAP9//3///////n8AgP//AAD//////n8AgAAA//8AAAAAAAAAAP9//3///wAA/3//fwAA/////////3//fwAAAAAAAP//"),
+"format": 34896613399,
+"index_count": 24,
+"index_data": PackedByteArray("AAABAAIAAwAEAAUABgAHAAgACQAKAAsADAANAA4ADwAQABEAEgATABQAFQAWABcA"),
+"material": SubResource("StandardMaterial3D_1d6lx"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("/3//f///mKf/f///AICYp////3//f5inAAD/f/9/6On/f/9/AADo6f9///8AgOjp/3//fwAA4SX/fwAA/3/hJf///3//f+El/3///wCAHdr/f/9/AAAd2v///3//fx3a/3///wCAZMD/f/9///9kwAAA/3//f2TAAAD/f/9/Fhb/fwAA/38WFv9//38AABYW/38AAP9/Zlj/f/9///9mWP///3//f2ZY/38AAP9/mj8AAP9//3+aP/9//3///5o/DsEALg7BAC4OwQAukfUiU5H1IlOR9SJTBDU5RAQ1OUQENTlEOcT6SjnE+ko5xPpKnvcbyp73G8qe9xvK3CySddwsknXcLJJ1/VEQQf1REEH9URBBG0pfiBtKX4gbSl+I")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_6scyy")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lw7dn"]
+blend_mode = 1
+cull_mode = 1
+albedo_color = Color(0.121806, 0.178414, 0.264104, 1)
+
+[node name="Crystal" instance=ExtResource("1_rbc65")]
+script = ExtResource("2_t6ak0")
+
+[node name="Crystal" parent="." index="0"]
+transform = Transform3D(0.329531, 0, 0, 0, 0.329531, 0, 0, 0, 0.329531, 0, 0, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_t6ak0")
+
+[node name="Crystal2" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(0.369404, 0, 0, 0, 0.369404, 0, 0, 0, 0.369404, 0, 0, 0)
+mesh = SubResource("ArrayMesh_nikax")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_lw7dn")
+
+[node name="Light" type="OmniLight3D" parent="." index="2"]
+light_color = Color(0.461649, 0.412382, 0.837651, 1)
+light_energy = 0.8
+omni_range = 3.321
+omni_attenuation = 1.5
