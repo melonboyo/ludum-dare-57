@@ -4,6 +4,7 @@
 /addons/
 Exports/*
 !Exports/*.ps1
+*.tmp
 
 # VS Code specific ignores
 .vscode/settings.json
