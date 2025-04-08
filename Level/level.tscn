@@ -751,13 +751,13 @@ editor_only = true
 script = ExtResource("4_nk1il")
 player = NodePath("../Player")
 focus = NodePath("../Focus")
-distance = 9.5
+distance = 13.5
 max_angle = 20.0
 min_angle = -24.0
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13.5)
 fov = 92.0
 size = 20.0
 
